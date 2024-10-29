@@ -1,0 +1,3896 @@
+{
+  "success": false,
+  "error": null,
+  "result": [
+    {
+      "type": "ExecutionPaths",
+      "count": 7,
+      "description": "\nCheck: \"unprotected-deletable\", Impact: High, Confidence: High\nDescription: Unprotected Deletable Applications\n\nWiki: https://github.com/crytic/tealer/wiki/Detector-Documentation#unprotected-deletable-application\n",
+      "check": "unprotected-deletable",
+      "impact": "High",
+      "confidence": "High",
+      "help": "- Avoid deletable applications.\n- Add access controls to the vulnerable method.",
+      "paths": [
+        {
+          "short": "0 -> 1 -> 3 -> 4 -> 5 -> 2",
+          "blocks": [
+            [
+              "1: #pragma version 10"
+            ],
+            [
+              "3: smart_contracts.box_storage.contract.Game.approval_program:",
+              "4: callsub __puya_arc4_router__"
+            ],
+            [
+              "9: __puya_arc4_router__:",
+              "10: proto 0 1",
+              "11: txn NumAppArgs",
+              "12: bz __puya_arc4_router___bare_routing@8"
+            ],
+            [
+              "13: method register(string)(uint64,string,uint64)",
+              "14: method fund_account(pay)uint64",
+              "15: method buy_asset(byte[],uint64)void",
+              "16: method admin_upsert_asset((string,string,uint64))void",
+              "17: txna ApplicationArgs 0",
+              "18: match __puya_arc4_router___register_route@2 __puya_arc4_router___fund_account_route@3 __puya_arc4_router___buy_asset_route@4 __puya_arc4_router___admin_upsert_asset_route@5"
+            ],
+            [
+              "19: int 0",
+              "20: retsub"
+            ],
+            [
+              "5: return"
+            ]
+          ]
+        },
+        {
+          "short": "0 -> 1 -> 3 -> 4 -> 6 -> 17 -> 18 -> 19 -> 7 -> 2",
+          "blocks": [
+            [
+              "1: #pragma version 10"
+            ],
+            [
+              "3: smart_contracts.box_storage.contract.Game.approval_program:",
+              "4: callsub __puya_arc4_router__"
+            ],
+            [
+              "9: __puya_arc4_router__:",
+              "10: proto 0 1",
+              "11: txn NumAppArgs",
+              "12: bz __puya_arc4_router___bare_routing@8"
+            ],
+            [
+              "13: method register(string)(uint64,string,uint64)",
+              "14: method fund_account(pay)uint64",
+              "15: method buy_asset(byte[],uint64)void",
+              "16: method admin_upsert_asset((string,string,uint64))void",
+              "17: txna ApplicationArgs 0",
+              "18: match __puya_arc4_router___register_route@2 __puya_arc4_router___fund_account_route@3 __puya_arc4_router___buy_asset_route@4 __puya_arc4_router___admin_upsert_asset_route@5"
+            ],
+            [
+              "22: __puya_arc4_router___register_route@2:",
+              "23: txn OnCompletion",
+              "24: !",
+              "25: assert",
+              "26: txn ApplicationID",
+              "27: assert",
+              "28: txna ApplicationArgs 1",
+              "29: callsub register"
+            ],
+            [
+              "99: register:",
+              "100: proto 1 1",
+              "101: byte \"user\"",
+              "102: txn Sender",
+              "103: concat",
+              "104: box_len",
+              "105: bury 1",
+              "106: bnz register_after_if_else@2"
+            ],
+            [
+              "107: global LatestTimestamp",
+              "108: itob",
+              "109: byte 0x0012",
+              "110: concat",
+              "111: byte 0x0000000000000000",
+              "112: concat",
+              "113: frame_dig -1",
+              "114: concat",
+              "115: byte \"user\"",
+              "116: txn Sender",
+              "117: concat",
+              "118: dup",
+              "119: box_del",
+              "120: pop",
+              "121: swap",
+              "122: box_put"
+            ],
+            [
+              "124: register_after_if_else@2:",
+              "125: byte \"user\"",
+              "126: txn Sender",
+              "127: concat",
+              "128: box_get",
+              "129: assert",
+              "130: retsub"
+            ],
+            [
+              "30: byte 0x151f7c75",
+              "31: swap",
+              "32: concat",
+              "33: log",
+              "34: int 1",
+              "35: retsub"
+            ],
+            [
+              "5: return"
+            ]
+          ]
+        },
+        {
+          "short": "0 -> 1 -> 3 -> 4 -> 6 -> 17 -> 19 -> 7 -> 2",
+          "blocks": [
+            [
+              "1: #pragma version 10"
+            ],
+            [
+              "3: smart_contracts.box_storage.contract.Game.approval_program:",
+              "4: callsub __puya_arc4_router__"
+            ],
+            [
+              "9: __puya_arc4_router__:",
+              "10: proto 0 1",
+              "11: txn NumAppArgs",
+              "12: bz __puya_arc4_router___bare_routing@8"
+            ],
+            [
+              "13: method register(string)(uint64,string,uint64)",
+              "14: method fund_account(pay)uint64",
+              "15: method buy_asset(byte[],uint64)void",
+              "16: method admin_upsert_asset((string,string,uint64))void",
+              "17: txna ApplicationArgs 0",
+              "18: match __puya_arc4_router___register_route@2 __puya_arc4_router___fund_account_route@3 __puya_arc4_router___buy_asset_route@4 __puya_arc4_router___admin_upsert_asset_route@5"
+            ],
+            [
+              "22: __puya_arc4_router___register_route@2:",
+              "23: txn OnCompletion",
+              "24: !",
+              "25: assert",
+              "26: txn ApplicationID",
+              "27: assert",
+              "28: txna ApplicationArgs 1",
+              "29: callsub register"
+            ],
+            [
+              "99: register:",
+              "100: proto 1 1",
+              "101: byte \"user\"",
+              "102: txn Sender",
+              "103: concat",
+              "104: box_len",
+              "105: bury 1",
+              "106: bnz register_after_if_else@2"
+            ],
+            [
+              "124: register_after_if_else@2:",
+              "125: byte \"user\"",
+              "126: txn Sender",
+              "127: concat",
+              "128: box_get",
+              "129: assert",
+              "130: retsub"
+            ],
+            [
+              "30: byte 0x151f7c75",
+              "31: swap",
+              "32: concat",
+              "33: log",
+              "34: int 1",
+              "35: retsub"
+            ],
+            [
+              "5: return"
+            ]
+          ]
+        },
+        {
+          "short": "0 -> 1 -> 3 -> 4 -> 8 -> 20 -> 9 -> 2",
+          "blocks": [
+            [
+              "1: #pragma version 10"
+            ],
+            [
+              "3: smart_contracts.box_storage.contract.Game.approval_program:",
+              "4: callsub __puya_arc4_router__"
+            ],
+            [
+              "9: __puya_arc4_router__:",
+              "10: proto 0 1",
+              "11: txn NumAppArgs",
+              "12: bz __puya_arc4_router___bare_routing@8"
+            ],
+            [
+              "13: method register(string)(uint64,string,uint64)",
+              "14: method fund_account(pay)uint64",
+              "15: method buy_asset(byte[],uint64)void",
+              "16: method admin_upsert_asset((string,string,uint64))void",
+              "17: txna ApplicationArgs 0",
+              "18: match __puya_arc4_router___register_route@2 __puya_arc4_router___fund_account_route@3 __puya_arc4_router___buy_asset_route@4 __puya_arc4_router___admin_upsert_asset_route@5"
+            ],
+            [
+              "37: __puya_arc4_router___fund_account_route@3:",
+              "38: txn OnCompletion",
+              "39: !",
+              "40: assert",
+              "41: txn ApplicationID",
+              "42: assert",
+              "43: txn GroupIndex",
+              "44: int 1",
+              "45: -",
+              "46: dup",
+              "47: Gtxns TypeEnum",
+              "48: int pay",
+              "49: ==",
+              "50: assert",
+              "51: callsub fund_account"
+            ],
+            [
+              "134: fund_account:",
+              "135: proto 1 1",
+              "136: frame_dig -1",
+              "137: Gtxns Receiver",
+              "138: global CurrentApplicationAddress",
+              "139: ==",
+              "140: assert",
+              "141: frame_dig -1",
+              "142: Gtxns Sender",
+              "143: byte \"user\"",
+              "144: swap",
+              "145: concat",
+              "146: dup",
+              "147: box_len",
+              "148: bury 1",
+              "149: assert",
+              "150: dup",
+              "151: box_get",
+              "152: assert",
+              "153: extract 10 8",
+              "154: btoi",
+              "155: frame_dig -1",
+              "156: Gtxns Amount",
+              "157: +",
+              "158: itob",
+              "159: dig 1",
+              "160: box_get",
+              "161: assert",
+              "162: swap",
+              "163: replace2 10",
+              "164: dig 1",
+              "165: box_del",
+              "166: pop",
+              "167: dig 1",
+              "168: swap",
+              "169: box_put",
+              "170: box_get",
+              "171: assert",
+              "172: extract 10 8",
+              "173: retsub"
+            ],
+            [
+              "52: byte 0x151f7c75",
+              "53: swap",
+              "54: concat",
+              "55: log",
+              "56: int 1",
+              "57: retsub"
+            ],
+            [
+              "5: return"
+            ]
+          ]
+        },
+        {
+          "short": "0 -> 1 -> 3 -> 4 -> 10 -> 21 -> 22 -> 24 -> 11 -> 2",
+          "blocks": [
+            [
+              "1: #pragma version 10"
+            ],
+            [
+              "3: smart_contracts.box_storage.contract.Game.approval_program:",
+              "4: callsub __puya_arc4_router__"
+            ],
+            [
+              "9: __puya_arc4_router__:",
+              "10: proto 0 1",
+              "11: txn NumAppArgs",
+              "12: bz __puya_arc4_router___bare_routing@8"
+            ],
+            [
+              "13: method register(string)(uint64,string,uint64)",
+              "14: method fund_account(pay)uint64",
+              "15: method buy_asset(byte[],uint64)void",
+              "16: method admin_upsert_asset((string,string,uint64))void",
+              "17: txna ApplicationArgs 0",
+              "18: match __puya_arc4_router___register_route@2 __puya_arc4_router___fund_account_route@3 __puya_arc4_router___buy_asset_route@4 __puya_arc4_router___admin_upsert_asset_route@5"
+            ],
+            [
+              "59: __puya_arc4_router___buy_asset_route@4:",
+              "60: txn OnCompletion",
+              "61: !",
+              "62: assert",
+              "63: txn ApplicationID",
+              "64: assert",
+              "65: txna ApplicationArgs 1",
+              "66: extract 2 0",
+              "67: txna ApplicationArgs 2",
+              "68: btoi",
+              "69: callsub buy_asset"
+            ],
+            [
+              "177: buy_asset:",
+              "178: proto 2 0",
+              "179: byte \"user\"",
+              "180: txn Sender",
+              "181: concat",
+              "182: box_len",
+              "183: bury 1",
+              "184: assert",
+              "185: byte \"asset\"",
+              "186: frame_dig -2",
+              "187: concat",
+              "188: dup",
+              "189: box_len",
+              "190: bury 1",
+              "191: assert",
+              "192: byte \"user\"",
+              "193: txn Sender",
+              "194: concat",
+              "195: box_get",
+              "196: assert",
+              "197: extract 10 8",
+              "198: btoi",
+              "199: swap",
+              "200: box_get",
+              "201: assert",
+              "202: extract 4 8",
+              "203: btoi",
+              "204: frame_dig -1",
+              "205: *",
+              "206: dup2",
+              "207: >=",
+              "208: assert",
+              "209: -",
+              "210: itob",
+              "211: byte \"user\"",
+              "212: txn Sender",
+              "213: concat",
+              "214: box_get",
+              "215: assert",
+              "216: swap",
+              "217: replace2 10",
+              "218: byte \"user\"",
+              "219: txn Sender",
+              "220: concat",
+              "221: dup",
+              "222: box_del",
+              "223: pop",
+              "224: swap",
+              "225: box_put",
+              "226: txn Sender",
+              "227: frame_dig -2",
+              "228: concat",
+              "229: sha256",
+              "230: byte \"user_asset\"",
+              "231: swap",
+              "232: concat",
+              "233: dup",
+              "234: box_len",
+              "235: bury 1",
+              "236: bz buy_asset_else_body@2"
+            ],
+            [
+              "237: dup",
+              "238: box_get",
+              "239: swap",
+              "240: btoi",
+              "241: swap",
+              "242: assert",
+              "243: frame_dig -1",
+              "244: +",
+              "245: itob",
+              "246: box_put",
+              "247: b buy_asset_after_if_else@3"
+            ],
+            [
+              "254: buy_asset_after_if_else@3:",
+              "255: retsub"
+            ],
+            [
+              "70: int 1",
+              "71: retsub"
+            ],
+            [
+              "5: return"
+            ]
+          ]
+        },
+        {
+          "short": "0 -> 1 -> 3 -> 4 -> 10 -> 21 -> 23 -> 24 -> 11 -> 2",
+          "blocks": [
+            [
+              "1: #pragma version 10"
+            ],
+            [
+              "3: smart_contracts.box_storage.contract.Game.approval_program:",
+              "4: callsub __puya_arc4_router__"
+            ],
+            [
+              "9: __puya_arc4_router__:",
+              "10: proto 0 1",
+              "11: txn NumAppArgs",
+              "12: bz __puya_arc4_router___bare_routing@8"
+            ],
+            [
+              "13: method register(string)(uint64,string,uint64)",
+              "14: method fund_account(pay)uint64",
+              "15: method buy_asset(byte[],uint64)void",
+              "16: method admin_upsert_asset((string,string,uint64))void",
+              "17: txna ApplicationArgs 0",
+              "18: match __puya_arc4_router___register_route@2 __puya_arc4_router___fund_account_route@3 __puya_arc4_router___buy_asset_route@4 __puya_arc4_router___admin_upsert_asset_route@5"
+            ],
+            [
+              "59: __puya_arc4_router___buy_asset_route@4:",
+              "60: txn OnCompletion",
+              "61: !",
+              "62: assert",
+              "63: txn ApplicationID",
+              "64: assert",
+              "65: txna ApplicationArgs 1",
+              "66: extract 2 0",
+              "67: txna ApplicationArgs 2",
+              "68: btoi",
+              "69: callsub buy_asset"
+            ],
+            [
+              "177: buy_asset:",
+              "178: proto 2 0",
+              "179: byte \"user\"",
+              "180: txn Sender",
+              "181: concat",
+              "182: box_len",
+              "183: bury 1",
+              "184: assert",
+              "185: byte \"asset\"",
+              "186: frame_dig -2",
+              "187: concat",
+              "188: dup",
+              "189: box_len",
+              "190: bury 1",
+              "191: assert",
+              "192: byte \"user\"",
+              "193: txn Sender",
+              "194: concat",
+              "195: box_get",
+              "196: assert",
+              "197: extract 10 8",
+              "198: btoi",
+              "199: swap",
+              "200: box_get",
+              "201: assert",
+              "202: extract 4 8",
+              "203: btoi",
+              "204: frame_dig -1",
+              "205: *",
+              "206: dup2",
+              "207: >=",
+              "208: assert",
+              "209: -",
+              "210: itob",
+              "211: byte \"user\"",
+              "212: txn Sender",
+              "213: concat",
+              "214: box_get",
+              "215: assert",
+              "216: swap",
+              "217: replace2 10",
+              "218: byte \"user\"",
+              "219: txn Sender",
+              "220: concat",
+              "221: dup",
+              "222: box_del",
+              "223: pop",
+              "224: swap",
+              "225: box_put",
+              "226: txn Sender",
+              "227: frame_dig -2",
+              "228: concat",
+              "229: sha256",
+              "230: byte \"user_asset\"",
+              "231: swap",
+              "232: concat",
+              "233: dup",
+              "234: box_len",
+              "235: bury 1",
+              "236: bz buy_asset_else_body@2"
+            ],
+            [
+              "249: buy_asset_else_body@2:",
+              "250: frame_dig -1",
+              "251: itob",
+              "252: box_put"
+            ],
+            [
+              "254: buy_asset_after_if_else@3:",
+              "255: retsub"
+            ],
+            [
+              "70: int 1",
+              "71: retsub"
+            ],
+            [
+              "5: return"
+            ]
+          ]
+        },
+        {
+          "short": "0 -> 1 -> 3 -> 14 -> 16 -> 2",
+          "blocks": [
+            [
+              "1: #pragma version 10"
+            ],
+            [
+              "3: smart_contracts.box_storage.contract.Game.approval_program:",
+              "4: callsub __puya_arc4_router__"
+            ],
+            [
+              "9: __puya_arc4_router__:",
+              "10: proto 0 1",
+              "11: txn NumAppArgs",
+              "12: bz __puya_arc4_router___bare_routing@8"
+            ],
+            [
+              "84: __puya_arc4_router___bare_routing@8:",
+              "85: txn OnCompletion",
+              "86: bnz __puya_arc4_router___after_if_else@12"
+            ],
+            [
+              "93: __puya_arc4_router___after_if_else@12:",
+              "94: int 0",
+              "95: retsub"
+            ],
+            [
+              "5: return"
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "type": "ExecutionPaths",
+      "count": 7,
+      "description": "\nCheck: \"unprotected-updatable\", Impact: High, Confidence: High\nDescription: Unprotected Upgradable Applications\n\nWiki: https://github.com/crytic/tealer/wiki/Detector-Documentation#unprotected-updatable-application\n",
+      "check": "unprotected-updatable",
+      "impact": "High",
+      "confidence": "High",
+      "help": "- Avoid upgradable applications.\n- Add access controls to the vulnerable method.",
+      "paths": [
+        {
+          "short": "0 -> 1 -> 3 -> 4 -> 5 -> 2",
+          "blocks": [
+            [
+              "1: #pragma version 10"
+            ],
+            [
+              "3: smart_contracts.box_storage.contract.Game.approval_program:",
+              "4: callsub __puya_arc4_router__"
+            ],
+            [
+              "9: __puya_arc4_router__:",
+              "10: proto 0 1",
+              "11: txn NumAppArgs",
+              "12: bz __puya_arc4_router___bare_routing@8"
+            ],
+            [
+              "13: method register(string)(uint64,string,uint64)",
+              "14: method fund_account(pay)uint64",
+              "15: method buy_asset(byte[],uint64)void",
+              "16: method admin_upsert_asset((string,string,uint64))void",
+              "17: txna ApplicationArgs 0",
+              "18: match __puya_arc4_router___register_route@2 __puya_arc4_router___fund_account_route@3 __puya_arc4_router___buy_asset_route@4 __puya_arc4_router___admin_upsert_asset_route@5"
+            ],
+            [
+              "19: int 0",
+              "20: retsub"
+            ],
+            [
+              "5: return"
+            ]
+          ]
+        },
+        {
+          "short": "0 -> 1 -> 3 -> 4 -> 6 -> 17 -> 18 -> 19 -> 7 -> 2",
+          "blocks": [
+            [
+              "1: #pragma version 10"
+            ],
+            [
+              "3: smart_contracts.box_storage.contract.Game.approval_program:",
+              "4: callsub __puya_arc4_router__"
+            ],
+            [
+              "9: __puya_arc4_router__:",
+              "10: proto 0 1",
+              "11: txn NumAppArgs",
+              "12: bz __puya_arc4_router___bare_routing@8"
+            ],
+            [
+              "13: method register(string)(uint64,string,uint64)",
+              "14: method fund_account(pay)uint64",
+              "15: method buy_asset(byte[],uint64)void",
+              "16: method admin_upsert_asset((string,string,uint64))void",
+              "17: txna ApplicationArgs 0",
+              "18: match __puya_arc4_router___register_route@2 __puya_arc4_router___fund_account_route@3 __puya_arc4_router___buy_asset_route@4 __puya_arc4_router___admin_upsert_asset_route@5"
+            ],
+            [
+              "22: __puya_arc4_router___register_route@2:",
+              "23: txn OnCompletion",
+              "24: !",
+              "25: assert",
+              "26: txn ApplicationID",
+              "27: assert",
+              "28: txna ApplicationArgs 1",
+              "29: callsub register"
+            ],
+            [
+              "99: register:",
+              "100: proto 1 1",
+              "101: byte \"user\"",
+              "102: txn Sender",
+              "103: concat",
+              "104: box_len",
+              "105: bury 1",
+              "106: bnz register_after_if_else@2"
+            ],
+            [
+              "107: global LatestTimestamp",
+              "108: itob",
+              "109: byte 0x0012",
+              "110: concat",
+              "111: byte 0x0000000000000000",
+              "112: concat",
+              "113: frame_dig -1",
+              "114: concat",
+              "115: byte \"user\"",
+              "116: txn Sender",
+              "117: concat",
+              "118: dup",
+              "119: box_del",
+              "120: pop",
+              "121: swap",
+              "122: box_put"
+            ],
+            [
+              "124: register_after_if_else@2:",
+              "125: byte \"user\"",
+              "126: txn Sender",
+              "127: concat",
+              "128: box_get",
+              "129: assert",
+              "130: retsub"
+            ],
+            [
+              "30: byte 0x151f7c75",
+              "31: swap",
+              "32: concat",
+              "33: log",
+              "34: int 1",
+              "35: retsub"
+            ],
+            [
+              "5: return"
+            ]
+          ]
+        },
+        {
+          "short": "0 -> 1 -> 3 -> 4 -> 6 -> 17 -> 19 -> 7 -> 2",
+          "blocks": [
+            [
+              "1: #pragma version 10"
+            ],
+            [
+              "3: smart_contracts.box_storage.contract.Game.approval_program:",
+              "4: callsub __puya_arc4_router__"
+            ],
+            [
+              "9: __puya_arc4_router__:",
+              "10: proto 0 1",
+              "11: txn NumAppArgs",
+              "12: bz __puya_arc4_router___bare_routing@8"
+            ],
+            [
+              "13: method register(string)(uint64,string,uint64)",
+              "14: method fund_account(pay)uint64",
+              "15: method buy_asset(byte[],uint64)void",
+              "16: method admin_upsert_asset((string,string,uint64))void",
+              "17: txna ApplicationArgs 0",
+              "18: match __puya_arc4_router___register_route@2 __puya_arc4_router___fund_account_route@3 __puya_arc4_router___buy_asset_route@4 __puya_arc4_router___admin_upsert_asset_route@5"
+            ],
+            [
+              "22: __puya_arc4_router___register_route@2:",
+              "23: txn OnCompletion",
+              "24: !",
+              "25: assert",
+              "26: txn ApplicationID",
+              "27: assert",
+              "28: txna ApplicationArgs 1",
+              "29: callsub register"
+            ],
+            [
+              "99: register:",
+              "100: proto 1 1",
+              "101: byte \"user\"",
+              "102: txn Sender",
+              "103: concat",
+              "104: box_len",
+              "105: bury 1",
+              "106: bnz register_after_if_else@2"
+            ],
+            [
+              "124: register_after_if_else@2:",
+              "125: byte \"user\"",
+              "126: txn Sender",
+              "127: concat",
+              "128: box_get",
+              "129: assert",
+              "130: retsub"
+            ],
+            [
+              "30: byte 0x151f7c75",
+              "31: swap",
+              "32: concat",
+              "33: log",
+              "34: int 1",
+              "35: retsub"
+            ],
+            [
+              "5: return"
+            ]
+          ]
+        },
+        {
+          "short": "0 -> 1 -> 3 -> 4 -> 8 -> 20 -> 9 -> 2",
+          "blocks": [
+            [
+              "1: #pragma version 10"
+            ],
+            [
+              "3: smart_contracts.box_storage.contract.Game.approval_program:",
+              "4: callsub __puya_arc4_router__"
+            ],
+            [
+              "9: __puya_arc4_router__:",
+              "10: proto 0 1",
+              "11: txn NumAppArgs",
+              "12: bz __puya_arc4_router___bare_routing@8"
+            ],
+            [
+              "13: method register(string)(uint64,string,uint64)",
+              "14: method fund_account(pay)uint64",
+              "15: method buy_asset(byte[],uint64)void",
+              "16: method admin_upsert_asset((string,string,uint64))void",
+              "17: txna ApplicationArgs 0",
+              "18: match __puya_arc4_router___register_route@2 __puya_arc4_router___fund_account_route@3 __puya_arc4_router___buy_asset_route@4 __puya_arc4_router___admin_upsert_asset_route@5"
+            ],
+            [
+              "37: __puya_arc4_router___fund_account_route@3:",
+              "38: txn OnCompletion",
+              "39: !",
+              "40: assert",
+              "41: txn ApplicationID",
+              "42: assert",
+              "43: txn GroupIndex",
+              "44: int 1",
+              "45: -",
+              "46: dup",
+              "47: Gtxns TypeEnum",
+              "48: int pay",
+              "49: ==",
+              "50: assert",
+              "51: callsub fund_account"
+            ],
+            [
+              "134: fund_account:",
+              "135: proto 1 1",
+              "136: frame_dig -1",
+              "137: Gtxns Receiver",
+              "138: global CurrentApplicationAddress",
+              "139: ==",
+              "140: assert",
+              "141: frame_dig -1",
+              "142: Gtxns Sender",
+              "143: byte \"user\"",
+              "144: swap",
+              "145: concat",
+              "146: dup",
+              "147: box_len",
+              "148: bury 1",
+              "149: assert",
+              "150: dup",
+              "151: box_get",
+              "152: assert",
+              "153: extract 10 8",
+              "154: btoi",
+              "155: frame_dig -1",
+              "156: Gtxns Amount",
+              "157: +",
+              "158: itob",
+              "159: dig 1",
+              "160: box_get",
+              "161: assert",
+              "162: swap",
+              "163: replace2 10",
+              "164: dig 1",
+              "165: box_del",
+              "166: pop",
+              "167: dig 1",
+              "168: swap",
+              "169: box_put",
+              "170: box_get",
+              "171: assert",
+              "172: extract 10 8",
+              "173: retsub"
+            ],
+            [
+              "52: byte 0x151f7c75",
+              "53: swap",
+              "54: concat",
+              "55: log",
+              "56: int 1",
+              "57: retsub"
+            ],
+            [
+              "5: return"
+            ]
+          ]
+        },
+        {
+          "short": "0 -> 1 -> 3 -> 4 -> 10 -> 21 -> 22 -> 24 -> 11 -> 2",
+          "blocks": [
+            [
+              "1: #pragma version 10"
+            ],
+            [
+              "3: smart_contracts.box_storage.contract.Game.approval_program:",
+              "4: callsub __puya_arc4_router__"
+            ],
+            [
+              "9: __puya_arc4_router__:",
+              "10: proto 0 1",
+              "11: txn NumAppArgs",
+              "12: bz __puya_arc4_router___bare_routing@8"
+            ],
+            [
+              "13: method register(string)(uint64,string,uint64)",
+              "14: method fund_account(pay)uint64",
+              "15: method buy_asset(byte[],uint64)void",
+              "16: method admin_upsert_asset((string,string,uint64))void",
+              "17: txna ApplicationArgs 0",
+              "18: match __puya_arc4_router___register_route@2 __puya_arc4_router___fund_account_route@3 __puya_arc4_router___buy_asset_route@4 __puya_arc4_router___admin_upsert_asset_route@5"
+            ],
+            [
+              "59: __puya_arc4_router___buy_asset_route@4:",
+              "60: txn OnCompletion",
+              "61: !",
+              "62: assert",
+              "63: txn ApplicationID",
+              "64: assert",
+              "65: txna ApplicationArgs 1",
+              "66: extract 2 0",
+              "67: txna ApplicationArgs 2",
+              "68: btoi",
+              "69: callsub buy_asset"
+            ],
+            [
+              "177: buy_asset:",
+              "178: proto 2 0",
+              "179: byte \"user\"",
+              "180: txn Sender",
+              "181: concat",
+              "182: box_len",
+              "183: bury 1",
+              "184: assert",
+              "185: byte \"asset\"",
+              "186: frame_dig -2",
+              "187: concat",
+              "188: dup",
+              "189: box_len",
+              "190: bury 1",
+              "191: assert",
+              "192: byte \"user\"",
+              "193: txn Sender",
+              "194: concat",
+              "195: box_get",
+              "196: assert",
+              "197: extract 10 8",
+              "198: btoi",
+              "199: swap",
+              "200: box_get",
+              "201: assert",
+              "202: extract 4 8",
+              "203: btoi",
+              "204: frame_dig -1",
+              "205: *",
+              "206: dup2",
+              "207: >=",
+              "208: assert",
+              "209: -",
+              "210: itob",
+              "211: byte \"user\"",
+              "212: txn Sender",
+              "213: concat",
+              "214: box_get",
+              "215: assert",
+              "216: swap",
+              "217: replace2 10",
+              "218: byte \"user\"",
+              "219: txn Sender",
+              "220: concat",
+              "221: dup",
+              "222: box_del",
+              "223: pop",
+              "224: swap",
+              "225: box_put",
+              "226: txn Sender",
+              "227: frame_dig -2",
+              "228: concat",
+              "229: sha256",
+              "230: byte \"user_asset\"",
+              "231: swap",
+              "232: concat",
+              "233: dup",
+              "234: box_len",
+              "235: bury 1",
+              "236: bz buy_asset_else_body@2"
+            ],
+            [
+              "237: dup",
+              "238: box_get",
+              "239: swap",
+              "240: btoi",
+              "241: swap",
+              "242: assert",
+              "243: frame_dig -1",
+              "244: +",
+              "245: itob",
+              "246: box_put",
+              "247: b buy_asset_after_if_else@3"
+            ],
+            [
+              "254: buy_asset_after_if_else@3:",
+              "255: retsub"
+            ],
+            [
+              "70: int 1",
+              "71: retsub"
+            ],
+            [
+              "5: return"
+            ]
+          ]
+        },
+        {
+          "short": "0 -> 1 -> 3 -> 4 -> 10 -> 21 -> 23 -> 24 -> 11 -> 2",
+          "blocks": [
+            [
+              "1: #pragma version 10"
+            ],
+            [
+              "3: smart_contracts.box_storage.contract.Game.approval_program:",
+              "4: callsub __puya_arc4_router__"
+            ],
+            [
+              "9: __puya_arc4_router__:",
+              "10: proto 0 1",
+              "11: txn NumAppArgs",
+              "12: bz __puya_arc4_router___bare_routing@8"
+            ],
+            [
+              "13: method register(string)(uint64,string,uint64)",
+              "14: method fund_account(pay)uint64",
+              "15: method buy_asset(byte[],uint64)void",
+              "16: method admin_upsert_asset((string,string,uint64))void",
+              "17: txna ApplicationArgs 0",
+              "18: match __puya_arc4_router___register_route@2 __puya_arc4_router___fund_account_route@3 __puya_arc4_router___buy_asset_route@4 __puya_arc4_router___admin_upsert_asset_route@5"
+            ],
+            [
+              "59: __puya_arc4_router___buy_asset_route@4:",
+              "60: txn OnCompletion",
+              "61: !",
+              "62: assert",
+              "63: txn ApplicationID",
+              "64: assert",
+              "65: txna ApplicationArgs 1",
+              "66: extract 2 0",
+              "67: txna ApplicationArgs 2",
+              "68: btoi",
+              "69: callsub buy_asset"
+            ],
+            [
+              "177: buy_asset:",
+              "178: proto 2 0",
+              "179: byte \"user\"",
+              "180: txn Sender",
+              "181: concat",
+              "182: box_len",
+              "183: bury 1",
+              "184: assert",
+              "185: byte \"asset\"",
+              "186: frame_dig -2",
+              "187: concat",
+              "188: dup",
+              "189: box_len",
+              "190: bury 1",
+              "191: assert",
+              "192: byte \"user\"",
+              "193: txn Sender",
+              "194: concat",
+              "195: box_get",
+              "196: assert",
+              "197: extract 10 8",
+              "198: btoi",
+              "199: swap",
+              "200: box_get",
+              "201: assert",
+              "202: extract 4 8",
+              "203: btoi",
+              "204: frame_dig -1",
+              "205: *",
+              "206: dup2",
+              "207: >=",
+              "208: assert",
+              "209: -",
+              "210: itob",
+              "211: byte \"user\"",
+              "212: txn Sender",
+              "213: concat",
+              "214: box_get",
+              "215: assert",
+              "216: swap",
+              "217: replace2 10",
+              "218: byte \"user\"",
+              "219: txn Sender",
+              "220: concat",
+              "221: dup",
+              "222: box_del",
+              "223: pop",
+              "224: swap",
+              "225: box_put",
+              "226: txn Sender",
+              "227: frame_dig -2",
+              "228: concat",
+              "229: sha256",
+              "230: byte \"user_asset\"",
+              "231: swap",
+              "232: concat",
+              "233: dup",
+              "234: box_len",
+              "235: bury 1",
+              "236: bz buy_asset_else_body@2"
+            ],
+            [
+              "249: buy_asset_else_body@2:",
+              "250: frame_dig -1",
+              "251: itob",
+              "252: box_put"
+            ],
+            [
+              "254: buy_asset_after_if_else@3:",
+              "255: retsub"
+            ],
+            [
+              "70: int 1",
+              "71: retsub"
+            ],
+            [
+              "5: return"
+            ]
+          ]
+        },
+        {
+          "short": "0 -> 1 -> 3 -> 14 -> 16 -> 2",
+          "blocks": [
+            [
+              "1: #pragma version 10"
+            ],
+            [
+              "3: smart_contracts.box_storage.contract.Game.approval_program:",
+              "4: callsub __puya_arc4_router__"
+            ],
+            [
+              "9: __puya_arc4_router__:",
+              "10: proto 0 1",
+              "11: txn NumAppArgs",
+              "12: bz __puya_arc4_router___bare_routing@8"
+            ],
+            [
+              "84: __puya_arc4_router___bare_routing@8:",
+              "85: txn OnCompletion",
+              "86: bnz __puya_arc4_router___after_if_else@12"
+            ],
+            [
+              "93: __puya_arc4_router___after_if_else@12:",
+              "94: int 0",
+              "95: retsub"
+            ],
+            [
+              "5: return"
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "type": "ExecutionPaths",
+      "count": 2,
+      "description": "\nCheck: \"can-close-account\", Impact: High, Confidence: High\nDescription: Missing CloseRemainderTo field Validation\n\nWiki: https://github.com/crytic/tealer/wiki/Detector-Documentation#missing-closeremainderto-field-validation\n",
+      "check": "can-close-account",
+      "impact": "High",
+      "confidence": "High",
+      "help": "Validate `CloseRemainderTo` field in the LogicSig.",
+      "paths": [
+        {
+          "short": "0 -> 1 -> 3 -> 4 -> 5 -> 2",
+          "blocks": [
+            [
+              "1: #pragma version 10"
+            ],
+            [
+              "3: smart_contracts.box_storage.contract.Game.approval_program:",
+              "4: callsub __puya_arc4_router__"
+            ],
+            [
+              "9: __puya_arc4_router__:",
+              "10: proto 0 1",
+              "11: txn NumAppArgs",
+              "12: bz __puya_arc4_router___bare_routing@8"
+            ],
+            [
+              "13: method register(string)(uint64,string,uint64)",
+              "14: method fund_account(pay)uint64",
+              "15: method buy_asset(byte[],uint64)void",
+              "16: method admin_upsert_asset((string,string,uint64))void",
+              "17: txna ApplicationArgs 0",
+              "18: match __puya_arc4_router___register_route@2 __puya_arc4_router___fund_account_route@3 __puya_arc4_router___buy_asset_route@4 __puya_arc4_router___admin_upsert_asset_route@5"
+            ],
+            [
+              "19: int 0",
+              "20: retsub"
+            ],
+            [
+              "5: return"
+            ]
+          ]
+        },
+        {
+          "short": "0 -> 1 -> 3 -> 14 -> 16 -> 2",
+          "blocks": [
+            [
+              "1: #pragma version 10"
+            ],
+            [
+              "3: smart_contracts.box_storage.contract.Game.approval_program:",
+              "4: callsub __puya_arc4_router__"
+            ],
+            [
+              "9: __puya_arc4_router__:",
+              "10: proto 0 1",
+              "11: txn NumAppArgs",
+              "12: bz __puya_arc4_router___bare_routing@8"
+            ],
+            [
+              "84: __puya_arc4_router___bare_routing@8:",
+              "85: txn OnCompletion",
+              "86: bnz __puya_arc4_router___after_if_else@12"
+            ],
+            [
+              "93: __puya_arc4_router___after_if_else@12:",
+              "94: int 0",
+              "95: retsub"
+            ],
+            [
+              "5: return"
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "type": "ExecutionPaths",
+      "count": 2,
+      "description": "\nCheck: \"can-close-asset\", Impact: High, Confidence: High\nDescription: Missing AssetCloseTo Field Validation\n\nWiki: https://github.com/crytic/tealer/wiki/Detector-Documentation#missing-assetcloseto-field-validation\n",
+      "check": "can-close-asset",
+      "impact": "High",
+      "confidence": "High",
+      "help": "Validate `AssetCloseTo` field in the LogicSig.",
+      "paths": [
+        {
+          "short": "0 -> 1 -> 3 -> 4 -> 5 -> 2",
+          "blocks": [
+            [
+              "1: #pragma version 10"
+            ],
+            [
+              "3: smart_contracts.box_storage.contract.Game.approval_program:",
+              "4: callsub __puya_arc4_router__"
+            ],
+            [
+              "9: __puya_arc4_router__:",
+              "10: proto 0 1",
+              "11: txn NumAppArgs",
+              "12: bz __puya_arc4_router___bare_routing@8"
+            ],
+            [
+              "13: method register(string)(uint64,string,uint64)",
+              "14: method fund_account(pay)uint64",
+              "15: method buy_asset(byte[],uint64)void",
+              "16: method admin_upsert_asset((string,string,uint64))void",
+              "17: txna ApplicationArgs 0",
+              "18: match __puya_arc4_router___register_route@2 __puya_arc4_router___fund_account_route@3 __puya_arc4_router___buy_asset_route@4 __puya_arc4_router___admin_upsert_asset_route@5"
+            ],
+            [
+              "19: int 0",
+              "20: retsub"
+            ],
+            [
+              "5: return"
+            ]
+          ]
+        },
+        {
+          "short": "0 -> 1 -> 3 -> 14 -> 16 -> 2",
+          "blocks": [
+            [
+              "1: #pragma version 10"
+            ],
+            [
+              "3: smart_contracts.box_storage.contract.Game.approval_program:",
+              "4: callsub __puya_arc4_router__"
+            ],
+            [
+              "9: __puya_arc4_router__:",
+              "10: proto 0 1",
+              "11: txn NumAppArgs",
+              "12: bz __puya_arc4_router___bare_routing@8"
+            ],
+            [
+              "84: __puya_arc4_router___bare_routing@8:",
+              "85: txn OnCompletion",
+              "86: bnz __puya_arc4_router___after_if_else@12"
+            ],
+            [
+              "93: __puya_arc4_router___after_if_else@12:",
+              "94: int 0",
+              "95: retsub"
+            ],
+            [
+              "5: return"
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "type": "ExecutionPaths",
+      "count": 8,
+      "description": "\nCheck: \"is-deletable\", Impact: High, Confidence: High\nDescription: Deletable Applications\n\nWiki: https://github.com/crytic/tealer/wiki/Detector-Documentation#deletable-application\n",
+      "check": "is-deletable",
+      "impact": "High",
+      "confidence": "High",
+      "help": "Do not approve `DeleteApplication` type application calls.",
+      "paths": [
+        {
+          "short": "0 -> 1 -> 3 -> 4 -> 5 -> 2",
+          "blocks": [
+            [
+              "1: #pragma version 10"
+            ],
+            [
+              "3: smart_contracts.box_storage.contract.Game.approval_program:",
+              "4: callsub __puya_arc4_router__"
+            ],
+            [
+              "9: __puya_arc4_router__:",
+              "10: proto 0 1",
+              "11: txn NumAppArgs",
+              "12: bz __puya_arc4_router___bare_routing@8"
+            ],
+            [
+              "13: method register(string)(uint64,string,uint64)",
+              "14: method fund_account(pay)uint64",
+              "15: method buy_asset(byte[],uint64)void",
+              "16: method admin_upsert_asset((string,string,uint64))void",
+              "17: txna ApplicationArgs 0",
+              "18: match __puya_arc4_router___register_route@2 __puya_arc4_router___fund_account_route@3 __puya_arc4_router___buy_asset_route@4 __puya_arc4_router___admin_upsert_asset_route@5"
+            ],
+            [
+              "19: int 0",
+              "20: retsub"
+            ],
+            [
+              "5: return"
+            ]
+          ]
+        },
+        {
+          "short": "0 -> 1 -> 3 -> 4 -> 6 -> 17 -> 18 -> 19 -> 7 -> 2",
+          "blocks": [
+            [
+              "1: #pragma version 10"
+            ],
+            [
+              "3: smart_contracts.box_storage.contract.Game.approval_program:",
+              "4: callsub __puya_arc4_router__"
+            ],
+            [
+              "9: __puya_arc4_router__:",
+              "10: proto 0 1",
+              "11: txn NumAppArgs",
+              "12: bz __puya_arc4_router___bare_routing@8"
+            ],
+            [
+              "13: method register(string)(uint64,string,uint64)",
+              "14: method fund_account(pay)uint64",
+              "15: method buy_asset(byte[],uint64)void",
+              "16: method admin_upsert_asset((string,string,uint64))void",
+              "17: txna ApplicationArgs 0",
+              "18: match __puya_arc4_router___register_route@2 __puya_arc4_router___fund_account_route@3 __puya_arc4_router___buy_asset_route@4 __puya_arc4_router___admin_upsert_asset_route@5"
+            ],
+            [
+              "22: __puya_arc4_router___register_route@2:",
+              "23: txn OnCompletion",
+              "24: !",
+              "25: assert",
+              "26: txn ApplicationID",
+              "27: assert",
+              "28: txna ApplicationArgs 1",
+              "29: callsub register"
+            ],
+            [
+              "99: register:",
+              "100: proto 1 1",
+              "101: byte \"user\"",
+              "102: txn Sender",
+              "103: concat",
+              "104: box_len",
+              "105: bury 1",
+              "106: bnz register_after_if_else@2"
+            ],
+            [
+              "107: global LatestTimestamp",
+              "108: itob",
+              "109: byte 0x0012",
+              "110: concat",
+              "111: byte 0x0000000000000000",
+              "112: concat",
+              "113: frame_dig -1",
+              "114: concat",
+              "115: byte \"user\"",
+              "116: txn Sender",
+              "117: concat",
+              "118: dup",
+              "119: box_del",
+              "120: pop",
+              "121: swap",
+              "122: box_put"
+            ],
+            [
+              "124: register_after_if_else@2:",
+              "125: byte \"user\"",
+              "126: txn Sender",
+              "127: concat",
+              "128: box_get",
+              "129: assert",
+              "130: retsub"
+            ],
+            [
+              "30: byte 0x151f7c75",
+              "31: swap",
+              "32: concat",
+              "33: log",
+              "34: int 1",
+              "35: retsub"
+            ],
+            [
+              "5: return"
+            ]
+          ]
+        },
+        {
+          "short": "0 -> 1 -> 3 -> 4 -> 6 -> 17 -> 19 -> 7 -> 2",
+          "blocks": [
+            [
+              "1: #pragma version 10"
+            ],
+            [
+              "3: smart_contracts.box_storage.contract.Game.approval_program:",
+              "4: callsub __puya_arc4_router__"
+            ],
+            [
+              "9: __puya_arc4_router__:",
+              "10: proto 0 1",
+              "11: txn NumAppArgs",
+              "12: bz __puya_arc4_router___bare_routing@8"
+            ],
+            [
+              "13: method register(string)(uint64,string,uint64)",
+              "14: method fund_account(pay)uint64",
+              "15: method buy_asset(byte[],uint64)void",
+              "16: method admin_upsert_asset((string,string,uint64))void",
+              "17: txna ApplicationArgs 0",
+              "18: match __puya_arc4_router___register_route@2 __puya_arc4_router___fund_account_route@3 __puya_arc4_router___buy_asset_route@4 __puya_arc4_router___admin_upsert_asset_route@5"
+            ],
+            [
+              "22: __puya_arc4_router___register_route@2:",
+              "23: txn OnCompletion",
+              "24: !",
+              "25: assert",
+              "26: txn ApplicationID",
+              "27: assert",
+              "28: txna ApplicationArgs 1",
+              "29: callsub register"
+            ],
+            [
+              "99: register:",
+              "100: proto 1 1",
+              "101: byte \"user\"",
+              "102: txn Sender",
+              "103: concat",
+              "104: box_len",
+              "105: bury 1",
+              "106: bnz register_after_if_else@2"
+            ],
+            [
+              "124: register_after_if_else@2:",
+              "125: byte \"user\"",
+              "126: txn Sender",
+              "127: concat",
+              "128: box_get",
+              "129: assert",
+              "130: retsub"
+            ],
+            [
+              "30: byte 0x151f7c75",
+              "31: swap",
+              "32: concat",
+              "33: log",
+              "34: int 1",
+              "35: retsub"
+            ],
+            [
+              "5: return"
+            ]
+          ]
+        },
+        {
+          "short": "0 -> 1 -> 3 -> 4 -> 8 -> 20 -> 9 -> 2",
+          "blocks": [
+            [
+              "1: #pragma version 10"
+            ],
+            [
+              "3: smart_contracts.box_storage.contract.Game.approval_program:",
+              "4: callsub __puya_arc4_router__"
+            ],
+            [
+              "9: __puya_arc4_router__:",
+              "10: proto 0 1",
+              "11: txn NumAppArgs",
+              "12: bz __puya_arc4_router___bare_routing@8"
+            ],
+            [
+              "13: method register(string)(uint64,string,uint64)",
+              "14: method fund_account(pay)uint64",
+              "15: method buy_asset(byte[],uint64)void",
+              "16: method admin_upsert_asset((string,string,uint64))void",
+              "17: txna ApplicationArgs 0",
+              "18: match __puya_arc4_router___register_route@2 __puya_arc4_router___fund_account_route@3 __puya_arc4_router___buy_asset_route@4 __puya_arc4_router___admin_upsert_asset_route@5"
+            ],
+            [
+              "37: __puya_arc4_router___fund_account_route@3:",
+              "38: txn OnCompletion",
+              "39: !",
+              "40: assert",
+              "41: txn ApplicationID",
+              "42: assert",
+              "43: txn GroupIndex",
+              "44: int 1",
+              "45: -",
+              "46: dup",
+              "47: Gtxns TypeEnum",
+              "48: int pay",
+              "49: ==",
+              "50: assert",
+              "51: callsub fund_account"
+            ],
+            [
+              "134: fund_account:",
+              "135: proto 1 1",
+              "136: frame_dig -1",
+              "137: Gtxns Receiver",
+              "138: global CurrentApplicationAddress",
+              "139: ==",
+              "140: assert",
+              "141: frame_dig -1",
+              "142: Gtxns Sender",
+              "143: byte \"user\"",
+              "144: swap",
+              "145: concat",
+              "146: dup",
+              "147: box_len",
+              "148: bury 1",
+              "149: assert",
+              "150: dup",
+              "151: box_get",
+              "152: assert",
+              "153: extract 10 8",
+              "154: btoi",
+              "155: frame_dig -1",
+              "156: Gtxns Amount",
+              "157: +",
+              "158: itob",
+              "159: dig 1",
+              "160: box_get",
+              "161: assert",
+              "162: swap",
+              "163: replace2 10",
+              "164: dig 1",
+              "165: box_del",
+              "166: pop",
+              "167: dig 1",
+              "168: swap",
+              "169: box_put",
+              "170: box_get",
+              "171: assert",
+              "172: extract 10 8",
+              "173: retsub"
+            ],
+            [
+              "52: byte 0x151f7c75",
+              "53: swap",
+              "54: concat",
+              "55: log",
+              "56: int 1",
+              "57: retsub"
+            ],
+            [
+              "5: return"
+            ]
+          ]
+        },
+        {
+          "short": "0 -> 1 -> 3 -> 4 -> 10 -> 21 -> 22 -> 24 -> 11 -> 2",
+          "blocks": [
+            [
+              "1: #pragma version 10"
+            ],
+            [
+              "3: smart_contracts.box_storage.contract.Game.approval_program:",
+              "4: callsub __puya_arc4_router__"
+            ],
+            [
+              "9: __puya_arc4_router__:",
+              "10: proto 0 1",
+              "11: txn NumAppArgs",
+              "12: bz __puya_arc4_router___bare_routing@8"
+            ],
+            [
+              "13: method register(string)(uint64,string,uint64)",
+              "14: method fund_account(pay)uint64",
+              "15: method buy_asset(byte[],uint64)void",
+              "16: method admin_upsert_asset((string,string,uint64))void",
+              "17: txna ApplicationArgs 0",
+              "18: match __puya_arc4_router___register_route@2 __puya_arc4_router___fund_account_route@3 __puya_arc4_router___buy_asset_route@4 __puya_arc4_router___admin_upsert_asset_route@5"
+            ],
+            [
+              "59: __puya_arc4_router___buy_asset_route@4:",
+              "60: txn OnCompletion",
+              "61: !",
+              "62: assert",
+              "63: txn ApplicationID",
+              "64: assert",
+              "65: txna ApplicationArgs 1",
+              "66: extract 2 0",
+              "67: txna ApplicationArgs 2",
+              "68: btoi",
+              "69: callsub buy_asset"
+            ],
+            [
+              "177: buy_asset:",
+              "178: proto 2 0",
+              "179: byte \"user\"",
+              "180: txn Sender",
+              "181: concat",
+              "182: box_len",
+              "183: bury 1",
+              "184: assert",
+              "185: byte \"asset\"",
+              "186: frame_dig -2",
+              "187: concat",
+              "188: dup",
+              "189: box_len",
+              "190: bury 1",
+              "191: assert",
+              "192: byte \"user\"",
+              "193: txn Sender",
+              "194: concat",
+              "195: box_get",
+              "196: assert",
+              "197: extract 10 8",
+              "198: btoi",
+              "199: swap",
+              "200: box_get",
+              "201: assert",
+              "202: extract 4 8",
+              "203: btoi",
+              "204: frame_dig -1",
+              "205: *",
+              "206: dup2",
+              "207: >=",
+              "208: assert",
+              "209: -",
+              "210: itob",
+              "211: byte \"user\"",
+              "212: txn Sender",
+              "213: concat",
+              "214: box_get",
+              "215: assert",
+              "216: swap",
+              "217: replace2 10",
+              "218: byte \"user\"",
+              "219: txn Sender",
+              "220: concat",
+              "221: dup",
+              "222: box_del",
+              "223: pop",
+              "224: swap",
+              "225: box_put",
+              "226: txn Sender",
+              "227: frame_dig -2",
+              "228: concat",
+              "229: sha256",
+              "230: byte \"user_asset\"",
+              "231: swap",
+              "232: concat",
+              "233: dup",
+              "234: box_len",
+              "235: bury 1",
+              "236: bz buy_asset_else_body@2"
+            ],
+            [
+              "237: dup",
+              "238: box_get",
+              "239: swap",
+              "240: btoi",
+              "241: swap",
+              "242: assert",
+              "243: frame_dig -1",
+              "244: +",
+              "245: itob",
+              "246: box_put",
+              "247: b buy_asset_after_if_else@3"
+            ],
+            [
+              "254: buy_asset_after_if_else@3:",
+              "255: retsub"
+            ],
+            [
+              "70: int 1",
+              "71: retsub"
+            ],
+            [
+              "5: return"
+            ]
+          ]
+        },
+        {
+          "short": "0 -> 1 -> 3 -> 4 -> 10 -> 21 -> 23 -> 24 -> 11 -> 2",
+          "blocks": [
+            [
+              "1: #pragma version 10"
+            ],
+            [
+              "3: smart_contracts.box_storage.contract.Game.approval_program:",
+              "4: callsub __puya_arc4_router__"
+            ],
+            [
+              "9: __puya_arc4_router__:",
+              "10: proto 0 1",
+              "11: txn NumAppArgs",
+              "12: bz __puya_arc4_router___bare_routing@8"
+            ],
+            [
+              "13: method register(string)(uint64,string,uint64)",
+              "14: method fund_account(pay)uint64",
+              "15: method buy_asset(byte[],uint64)void",
+              "16: method admin_upsert_asset((string,string,uint64))void",
+              "17: txna ApplicationArgs 0",
+              "18: match __puya_arc4_router___register_route@2 __puya_arc4_router___fund_account_route@3 __puya_arc4_router___buy_asset_route@4 __puya_arc4_router___admin_upsert_asset_route@5"
+            ],
+            [
+              "59: __puya_arc4_router___buy_asset_route@4:",
+              "60: txn OnCompletion",
+              "61: !",
+              "62: assert",
+              "63: txn ApplicationID",
+              "64: assert",
+              "65: txna ApplicationArgs 1",
+              "66: extract 2 0",
+              "67: txna ApplicationArgs 2",
+              "68: btoi",
+              "69: callsub buy_asset"
+            ],
+            [
+              "177: buy_asset:",
+              "178: proto 2 0",
+              "179: byte \"user\"",
+              "180: txn Sender",
+              "181: concat",
+              "182: box_len",
+              "183: bury 1",
+              "184: assert",
+              "185: byte \"asset\"",
+              "186: frame_dig -2",
+              "187: concat",
+              "188: dup",
+              "189: box_len",
+              "190: bury 1",
+              "191: assert",
+              "192: byte \"user\"",
+              "193: txn Sender",
+              "194: concat",
+              "195: box_get",
+              "196: assert",
+              "197: extract 10 8",
+              "198: btoi",
+              "199: swap",
+              "200: box_get",
+              "201: assert",
+              "202: extract 4 8",
+              "203: btoi",
+              "204: frame_dig -1",
+              "205: *",
+              "206: dup2",
+              "207: >=",
+              "208: assert",
+              "209: -",
+              "210: itob",
+              "211: byte \"user\"",
+              "212: txn Sender",
+              "213: concat",
+              "214: box_get",
+              "215: assert",
+              "216: swap",
+              "217: replace2 10",
+              "218: byte \"user\"",
+              "219: txn Sender",
+              "220: concat",
+              "221: dup",
+              "222: box_del",
+              "223: pop",
+              "224: swap",
+              "225: box_put",
+              "226: txn Sender",
+              "227: frame_dig -2",
+              "228: concat",
+              "229: sha256",
+              "230: byte \"user_asset\"",
+              "231: swap",
+              "232: concat",
+              "233: dup",
+              "234: box_len",
+              "235: bury 1",
+              "236: bz buy_asset_else_body@2"
+            ],
+            [
+              "249: buy_asset_else_body@2:",
+              "250: frame_dig -1",
+              "251: itob",
+              "252: box_put"
+            ],
+            [
+              "254: buy_asset_after_if_else@3:",
+              "255: retsub"
+            ],
+            [
+              "70: int 1",
+              "71: retsub"
+            ],
+            [
+              "5: return"
+            ]
+          ]
+        },
+        {
+          "short": "0 -> 1 -> 3 -> 4 -> 12 -> 25 -> 13 -> 2",
+          "blocks": [
+            [
+              "1: #pragma version 10"
+            ],
+            [
+              "3: smart_contracts.box_storage.contract.Game.approval_program:",
+              "4: callsub __puya_arc4_router__"
+            ],
+            [
+              "9: __puya_arc4_router__:",
+              "10: proto 0 1",
+              "11: txn NumAppArgs",
+              "12: bz __puya_arc4_router___bare_routing@8"
+            ],
+            [
+              "13: method register(string)(uint64,string,uint64)",
+              "14: method fund_account(pay)uint64",
+              "15: method buy_asset(byte[],uint64)void",
+              "16: method admin_upsert_asset((string,string,uint64))void",
+              "17: txna ApplicationArgs 0",
+              "18: match __puya_arc4_router___register_route@2 __puya_arc4_router___fund_account_route@3 __puya_arc4_router___buy_asset_route@4 __puya_arc4_router___admin_upsert_asset_route@5"
+            ],
+            [
+              "73: __puya_arc4_router___admin_upsert_asset_route@5:",
+              "74: txn OnCompletion",
+              "75: !",
+              "76: assert",
+              "77: txn ApplicationID",
+              "78: assert",
+              "79: txna ApplicationArgs 1",
+              "80: callsub admin_upsert_asset"
+            ],
+            [
+              "259: admin_upsert_asset:",
+              "260: proto 1 0",
+              "261: txn Sender",
+              "262: global CreatorAddress",
+              "263: ==",
+              "264: assert",
+              "265: frame_dig -1",
+              "266: int 0",
+              "267: extract_uint16",
+              "268: frame_dig -1",
+              "269: int 2",
+              "270: extract_uint16",
+              "271: frame_dig -1",
+              "272: cover 2",
+              "273: substring3",
+              "274: sha256",
+              "275: byte \"asset\"",
+              "276: swap",
+              "277: concat",
+              "278: dup",
+              "279: box_del",
+              "280: pop",
+              "281: frame_dig -1",
+              "282: box_put",
+              "283: retsub"
+            ],
+            [
+              "81: int 1",
+              "82: retsub"
+            ],
+            [
+              "5: return"
+            ]
+          ]
+        },
+        {
+          "short": "0 -> 1 -> 3 -> 14 -> 16 -> 2",
+          "blocks": [
+            [
+              "1: #pragma version 10"
+            ],
+            [
+              "3: smart_contracts.box_storage.contract.Game.approval_program:",
+              "4: callsub __puya_arc4_router__"
+            ],
+            [
+              "9: __puya_arc4_router__:",
+              "10: proto 0 1",
+              "11: txn NumAppArgs",
+              "12: bz __puya_arc4_router___bare_routing@8"
+            ],
+            [
+              "84: __puya_arc4_router___bare_routing@8:",
+              "85: txn OnCompletion",
+              "86: bnz __puya_arc4_router___after_if_else@12"
+            ],
+            [
+              "93: __puya_arc4_router___after_if_else@12:",
+              "94: int 0",
+              "95: retsub"
+            ],
+            [
+              "5: return"
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "type": "ExecutionPaths",
+      "count": 8,
+      "description": "\nCheck: \"is-updatable\", Impact: High, Confidence: High\nDescription: Upgradable Applications\n\nWiki: https://github.com/crytic/tealer/wiki/Detector-Documentation#upgradable-application\n",
+      "check": "is-updatable",
+      "impact": "High",
+      "confidence": "High",
+      "help": "Do not approve `UpdateApplication` type application calls.",
+      "paths": [
+        {
+          "short": "0 -> 1 -> 3 -> 4 -> 5 -> 2",
+          "blocks": [
+            [
+              "1: #pragma version 10"
+            ],
+            [
+              "3: smart_contracts.box_storage.contract.Game.approval_program:",
+              "4: callsub __puya_arc4_router__"
+            ],
+            [
+              "9: __puya_arc4_router__:",
+              "10: proto 0 1",
+              "11: txn NumAppArgs",
+              "12: bz __puya_arc4_router___bare_routing@8"
+            ],
+            [
+              "13: method register(string)(uint64,string,uint64)",
+              "14: method fund_account(pay)uint64",
+              "15: method buy_asset(byte[],uint64)void",
+              "16: method admin_upsert_asset((string,string,uint64))void",
+              "17: txna ApplicationArgs 0",
+              "18: match __puya_arc4_router___register_route@2 __puya_arc4_router___fund_account_route@3 __puya_arc4_router___buy_asset_route@4 __puya_arc4_router___admin_upsert_asset_route@5"
+            ],
+            [
+              "19: int 0",
+              "20: retsub"
+            ],
+            [
+              "5: return"
+            ]
+          ]
+        },
+        {
+          "short": "0 -> 1 -> 3 -> 4 -> 6 -> 17 -> 18 -> 19 -> 7 -> 2",
+          "blocks": [
+            [
+              "1: #pragma version 10"
+            ],
+            [
+              "3: smart_contracts.box_storage.contract.Game.approval_program:",
+              "4: callsub __puya_arc4_router__"
+            ],
+            [
+              "9: __puya_arc4_router__:",
+              "10: proto 0 1",
+              "11: txn NumAppArgs",
+              "12: bz __puya_arc4_router___bare_routing@8"
+            ],
+            [
+              "13: method register(string)(uint64,string,uint64)",
+              "14: method fund_account(pay)uint64",
+              "15: method buy_asset(byte[],uint64)void",
+              "16: method admin_upsert_asset((string,string,uint64))void",
+              "17: txna ApplicationArgs 0",
+              "18: match __puya_arc4_router___register_route@2 __puya_arc4_router___fund_account_route@3 __puya_arc4_router___buy_asset_route@4 __puya_arc4_router___admin_upsert_asset_route@5"
+            ],
+            [
+              "22: __puya_arc4_router___register_route@2:",
+              "23: txn OnCompletion",
+              "24: !",
+              "25: assert",
+              "26: txn ApplicationID",
+              "27: assert",
+              "28: txna ApplicationArgs 1",
+              "29: callsub register"
+            ],
+            [
+              "99: register:",
+              "100: proto 1 1",
+              "101: byte \"user\"",
+              "102: txn Sender",
+              "103: concat",
+              "104: box_len",
+              "105: bury 1",
+              "106: bnz register_after_if_else@2"
+            ],
+            [
+              "107: global LatestTimestamp",
+              "108: itob",
+              "109: byte 0x0012",
+              "110: concat",
+              "111: byte 0x0000000000000000",
+              "112: concat",
+              "113: frame_dig -1",
+              "114: concat",
+              "115: byte \"user\"",
+              "116: txn Sender",
+              "117: concat",
+              "118: dup",
+              "119: box_del",
+              "120: pop",
+              "121: swap",
+              "122: box_put"
+            ],
+            [
+              "124: register_after_if_else@2:",
+              "125: byte \"user\"",
+              "126: txn Sender",
+              "127: concat",
+              "128: box_get",
+              "129: assert",
+              "130: retsub"
+            ],
+            [
+              "30: byte 0x151f7c75",
+              "31: swap",
+              "32: concat",
+              "33: log",
+              "34: int 1",
+              "35: retsub"
+            ],
+            [
+              "5: return"
+            ]
+          ]
+        },
+        {
+          "short": "0 -> 1 -> 3 -> 4 -> 6 -> 17 -> 19 -> 7 -> 2",
+          "blocks": [
+            [
+              "1: #pragma version 10"
+            ],
+            [
+              "3: smart_contracts.box_storage.contract.Game.approval_program:",
+              "4: callsub __puya_arc4_router__"
+            ],
+            [
+              "9: __puya_arc4_router__:",
+              "10: proto 0 1",
+              "11: txn NumAppArgs",
+              "12: bz __puya_arc4_router___bare_routing@8"
+            ],
+            [
+              "13: method register(string)(uint64,string,uint64)",
+              "14: method fund_account(pay)uint64",
+              "15: method buy_asset(byte[],uint64)void",
+              "16: method admin_upsert_asset((string,string,uint64))void",
+              "17: txna ApplicationArgs 0",
+              "18: match __puya_arc4_router___register_route@2 __puya_arc4_router___fund_account_route@3 __puya_arc4_router___buy_asset_route@4 __puya_arc4_router___admin_upsert_asset_route@5"
+            ],
+            [
+              "22: __puya_arc4_router___register_route@2:",
+              "23: txn OnCompletion",
+              "24: !",
+              "25: assert",
+              "26: txn ApplicationID",
+              "27: assert",
+              "28: txna ApplicationArgs 1",
+              "29: callsub register"
+            ],
+            [
+              "99: register:",
+              "100: proto 1 1",
+              "101: byte \"user\"",
+              "102: txn Sender",
+              "103: concat",
+              "104: box_len",
+              "105: bury 1",
+              "106: bnz register_after_if_else@2"
+            ],
+            [
+              "124: register_after_if_else@2:",
+              "125: byte \"user\"",
+              "126: txn Sender",
+              "127: concat",
+              "128: box_get",
+              "129: assert",
+              "130: retsub"
+            ],
+            [
+              "30: byte 0x151f7c75",
+              "31: swap",
+              "32: concat",
+              "33: log",
+              "34: int 1",
+              "35: retsub"
+            ],
+            [
+              "5: return"
+            ]
+          ]
+        },
+        {
+          "short": "0 -> 1 -> 3 -> 4 -> 8 -> 20 -> 9 -> 2",
+          "blocks": [
+            [
+              "1: #pragma version 10"
+            ],
+            [
+              "3: smart_contracts.box_storage.contract.Game.approval_program:",
+              "4: callsub __puya_arc4_router__"
+            ],
+            [
+              "9: __puya_arc4_router__:",
+              "10: proto 0 1",
+              "11: txn NumAppArgs",
+              "12: bz __puya_arc4_router___bare_routing@8"
+            ],
+            [
+              "13: method register(string)(uint64,string,uint64)",
+              "14: method fund_account(pay)uint64",
+              "15: method buy_asset(byte[],uint64)void",
+              "16: method admin_upsert_asset((string,string,uint64))void",
+              "17: txna ApplicationArgs 0",
+              "18: match __puya_arc4_router___register_route@2 __puya_arc4_router___fund_account_route@3 __puya_arc4_router___buy_asset_route@4 __puya_arc4_router___admin_upsert_asset_route@5"
+            ],
+            [
+              "37: __puya_arc4_router___fund_account_route@3:",
+              "38: txn OnCompletion",
+              "39: !",
+              "40: assert",
+              "41: txn ApplicationID",
+              "42: assert",
+              "43: txn GroupIndex",
+              "44: int 1",
+              "45: -",
+              "46: dup",
+              "47: Gtxns TypeEnum",
+              "48: int pay",
+              "49: ==",
+              "50: assert",
+              "51: callsub fund_account"
+            ],
+            [
+              "134: fund_account:",
+              "135: proto 1 1",
+              "136: frame_dig -1",
+              "137: Gtxns Receiver",
+              "138: global CurrentApplicationAddress",
+              "139: ==",
+              "140: assert",
+              "141: frame_dig -1",
+              "142: Gtxns Sender",
+              "143: byte \"user\"",
+              "144: swap",
+              "145: concat",
+              "146: dup",
+              "147: box_len",
+              "148: bury 1",
+              "149: assert",
+              "150: dup",
+              "151: box_get",
+              "152: assert",
+              "153: extract 10 8",
+              "154: btoi",
+              "155: frame_dig -1",
+              "156: Gtxns Amount",
+              "157: +",
+              "158: itob",
+              "159: dig 1",
+              "160: box_get",
+              "161: assert",
+              "162: swap",
+              "163: replace2 10",
+              "164: dig 1",
+              "165: box_del",
+              "166: pop",
+              "167: dig 1",
+              "168: swap",
+              "169: box_put",
+              "170: box_get",
+              "171: assert",
+              "172: extract 10 8",
+              "173: retsub"
+            ],
+            [
+              "52: byte 0x151f7c75",
+              "53: swap",
+              "54: concat",
+              "55: log",
+              "56: int 1",
+              "57: retsub"
+            ],
+            [
+              "5: return"
+            ]
+          ]
+        },
+        {
+          "short": "0 -> 1 -> 3 -> 4 -> 10 -> 21 -> 22 -> 24 -> 11 -> 2",
+          "blocks": [
+            [
+              "1: #pragma version 10"
+            ],
+            [
+              "3: smart_contracts.box_storage.contract.Game.approval_program:",
+              "4: callsub __puya_arc4_router__"
+            ],
+            [
+              "9: __puya_arc4_router__:",
+              "10: proto 0 1",
+              "11: txn NumAppArgs",
+              "12: bz __puya_arc4_router___bare_routing@8"
+            ],
+            [
+              "13: method register(string)(uint64,string,uint64)",
+              "14: method fund_account(pay)uint64",
+              "15: method buy_asset(byte[],uint64)void",
+              "16: method admin_upsert_asset((string,string,uint64))void",
+              "17: txna ApplicationArgs 0",
+              "18: match __puya_arc4_router___register_route@2 __puya_arc4_router___fund_account_route@3 __puya_arc4_router___buy_asset_route@4 __puya_arc4_router___admin_upsert_asset_route@5"
+            ],
+            [
+              "59: __puya_arc4_router___buy_asset_route@4:",
+              "60: txn OnCompletion",
+              "61: !",
+              "62: assert",
+              "63: txn ApplicationID",
+              "64: assert",
+              "65: txna ApplicationArgs 1",
+              "66: extract 2 0",
+              "67: txna ApplicationArgs 2",
+              "68: btoi",
+              "69: callsub buy_asset"
+            ],
+            [
+              "177: buy_asset:",
+              "178: proto 2 0",
+              "179: byte \"user\"",
+              "180: txn Sender",
+              "181: concat",
+              "182: box_len",
+              "183: bury 1",
+              "184: assert",
+              "185: byte \"asset\"",
+              "186: frame_dig -2",
+              "187: concat",
+              "188: dup",
+              "189: box_len",
+              "190: bury 1",
+              "191: assert",
+              "192: byte \"user\"",
+              "193: txn Sender",
+              "194: concat",
+              "195: box_get",
+              "196: assert",
+              "197: extract 10 8",
+              "198: btoi",
+              "199: swap",
+              "200: box_get",
+              "201: assert",
+              "202: extract 4 8",
+              "203: btoi",
+              "204: frame_dig -1",
+              "205: *",
+              "206: dup2",
+              "207: >=",
+              "208: assert",
+              "209: -",
+              "210: itob",
+              "211: byte \"user\"",
+              "212: txn Sender",
+              "213: concat",
+              "214: box_get",
+              "215: assert",
+              "216: swap",
+              "217: replace2 10",
+              "218: byte \"user\"",
+              "219: txn Sender",
+              "220: concat",
+              "221: dup",
+              "222: box_del",
+              "223: pop",
+              "224: swap",
+              "225: box_put",
+              "226: txn Sender",
+              "227: frame_dig -2",
+              "228: concat",
+              "229: sha256",
+              "230: byte \"user_asset\"",
+              "231: swap",
+              "232: concat",
+              "233: dup",
+              "234: box_len",
+              "235: bury 1",
+              "236: bz buy_asset_else_body@2"
+            ],
+            [
+              "237: dup",
+              "238: box_get",
+              "239: swap",
+              "240: btoi",
+              "241: swap",
+              "242: assert",
+              "243: frame_dig -1",
+              "244: +",
+              "245: itob",
+              "246: box_put",
+              "247: b buy_asset_after_if_else@3"
+            ],
+            [
+              "254: buy_asset_after_if_else@3:",
+              "255: retsub"
+            ],
+            [
+              "70: int 1",
+              "71: retsub"
+            ],
+            [
+              "5: return"
+            ]
+          ]
+        },
+        {
+          "short": "0 -> 1 -> 3 -> 4 -> 10 -> 21 -> 23 -> 24 -> 11 -> 2",
+          "blocks": [
+            [
+              "1: #pragma version 10"
+            ],
+            [
+              "3: smart_contracts.box_storage.contract.Game.approval_program:",
+              "4: callsub __puya_arc4_router__"
+            ],
+            [
+              "9: __puya_arc4_router__:",
+              "10: proto 0 1",
+              "11: txn NumAppArgs",
+              "12: bz __puya_arc4_router___bare_routing@8"
+            ],
+            [
+              "13: method register(string)(uint64,string,uint64)",
+              "14: method fund_account(pay)uint64",
+              "15: method buy_asset(byte[],uint64)void",
+              "16: method admin_upsert_asset((string,string,uint64))void",
+              "17: txna ApplicationArgs 0",
+              "18: match __puya_arc4_router___register_route@2 __puya_arc4_router___fund_account_route@3 __puya_arc4_router___buy_asset_route@4 __puya_arc4_router___admin_upsert_asset_route@5"
+            ],
+            [
+              "59: __puya_arc4_router___buy_asset_route@4:",
+              "60: txn OnCompletion",
+              "61: !",
+              "62: assert",
+              "63: txn ApplicationID",
+              "64: assert",
+              "65: txna ApplicationArgs 1",
+              "66: extract 2 0",
+              "67: txna ApplicationArgs 2",
+              "68: btoi",
+              "69: callsub buy_asset"
+            ],
+            [
+              "177: buy_asset:",
+              "178: proto 2 0",
+              "179: byte \"user\"",
+              "180: txn Sender",
+              "181: concat",
+              "182: box_len",
+              "183: bury 1",
+              "184: assert",
+              "185: byte \"asset\"",
+              "186: frame_dig -2",
+              "187: concat",
+              "188: dup",
+              "189: box_len",
+              "190: bury 1",
+              "191: assert",
+              "192: byte \"user\"",
+              "193: txn Sender",
+              "194: concat",
+              "195: box_get",
+              "196: assert",
+              "197: extract 10 8",
+              "198: btoi",
+              "199: swap",
+              "200: box_get",
+              "201: assert",
+              "202: extract 4 8",
+              "203: btoi",
+              "204: frame_dig -1",
+              "205: *",
+              "206: dup2",
+              "207: >=",
+              "208: assert",
+              "209: -",
+              "210: itob",
+              "211: byte \"user\"",
+              "212: txn Sender",
+              "213: concat",
+              "214: box_get",
+              "215: assert",
+              "216: swap",
+              "217: replace2 10",
+              "218: byte \"user\"",
+              "219: txn Sender",
+              "220: concat",
+              "221: dup",
+              "222: box_del",
+              "223: pop",
+              "224: swap",
+              "225: box_put",
+              "226: txn Sender",
+              "227: frame_dig -2",
+              "228: concat",
+              "229: sha256",
+              "230: byte \"user_asset\"",
+              "231: swap",
+              "232: concat",
+              "233: dup",
+              "234: box_len",
+              "235: bury 1",
+              "236: bz buy_asset_else_body@2"
+            ],
+            [
+              "249: buy_asset_else_body@2:",
+              "250: frame_dig -1",
+              "251: itob",
+              "252: box_put"
+            ],
+            [
+              "254: buy_asset_after_if_else@3:",
+              "255: retsub"
+            ],
+            [
+              "70: int 1",
+              "71: retsub"
+            ],
+            [
+              "5: return"
+            ]
+          ]
+        },
+        {
+          "short": "0 -> 1 -> 3 -> 4 -> 12 -> 25 -> 13 -> 2",
+          "blocks": [
+            [
+              "1: #pragma version 10"
+            ],
+            [
+              "3: smart_contracts.box_storage.contract.Game.approval_program:",
+              "4: callsub __puya_arc4_router__"
+            ],
+            [
+              "9: __puya_arc4_router__:",
+              "10: proto 0 1",
+              "11: txn NumAppArgs",
+              "12: bz __puya_arc4_router___bare_routing@8"
+            ],
+            [
+              "13: method register(string)(uint64,string,uint64)",
+              "14: method fund_account(pay)uint64",
+              "15: method buy_asset(byte[],uint64)void",
+              "16: method admin_upsert_asset((string,string,uint64))void",
+              "17: txna ApplicationArgs 0",
+              "18: match __puya_arc4_router___register_route@2 __puya_arc4_router___fund_account_route@3 __puya_arc4_router___buy_asset_route@4 __puya_arc4_router___admin_upsert_asset_route@5"
+            ],
+            [
+              "73: __puya_arc4_router___admin_upsert_asset_route@5:",
+              "74: txn OnCompletion",
+              "75: !",
+              "76: assert",
+              "77: txn ApplicationID",
+              "78: assert",
+              "79: txna ApplicationArgs 1",
+              "80: callsub admin_upsert_asset"
+            ],
+            [
+              "259: admin_upsert_asset:",
+              "260: proto 1 0",
+              "261: txn Sender",
+              "262: global CreatorAddress",
+              "263: ==",
+              "264: assert",
+              "265: frame_dig -1",
+              "266: int 0",
+              "267: extract_uint16",
+              "268: frame_dig -1",
+              "269: int 2",
+              "270: extract_uint16",
+              "271: frame_dig -1",
+              "272: cover 2",
+              "273: substring3",
+              "274: sha256",
+              "275: byte \"asset\"",
+              "276: swap",
+              "277: concat",
+              "278: dup",
+              "279: box_del",
+              "280: pop",
+              "281: frame_dig -1",
+              "282: box_put",
+              "283: retsub"
+            ],
+            [
+              "81: int 1",
+              "82: retsub"
+            ],
+            [
+              "5: return"
+            ]
+          ]
+        },
+        {
+          "short": "0 -> 1 -> 3 -> 14 -> 16 -> 2",
+          "blocks": [
+            [
+              "1: #pragma version 10"
+            ],
+            [
+              "3: smart_contracts.box_storage.contract.Game.approval_program:",
+              "4: callsub __puya_arc4_router__"
+            ],
+            [
+              "9: __puya_arc4_router__:",
+              "10: proto 0 1",
+              "11: txn NumAppArgs",
+              "12: bz __puya_arc4_router___bare_routing@8"
+            ],
+            [
+              "84: __puya_arc4_router___bare_routing@8:",
+              "85: txn OnCompletion",
+              "86: bnz __puya_arc4_router___after_if_else@12"
+            ],
+            [
+              "93: __puya_arc4_router___after_if_else@12:",
+              "94: int 0",
+              "95: retsub"
+            ],
+            [
+              "5: return"
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "type": "ExecutionPaths",
+      "count": 9,
+      "description": "\nCheck: \"missing-fee-check\", Impact: High, Confidence: High\nDescription: Missing Fee Field Validation\n\nWiki: https://github.com/crytic/tealer/wiki/Detector-Documentation#missing-fee-field-validation\n",
+      "check": "missing-fee-check",
+      "impact": "High",
+      "confidence": "High",
+      "help": "Validate `Fee` field in the LogicSig.",
+      "paths": [
+        {
+          "short": "0 -> 1 -> 3 -> 4 -> 5 -> 2",
+          "blocks": [
+            [
+              "1: #pragma version 10"
+            ],
+            [
+              "3: smart_contracts.box_storage.contract.Game.approval_program:",
+              "4: callsub __puya_arc4_router__"
+            ],
+            [
+              "9: __puya_arc4_router__:",
+              "10: proto 0 1",
+              "11: txn NumAppArgs",
+              "12: bz __puya_arc4_router___bare_routing@8"
+            ],
+            [
+              "13: method register(string)(uint64,string,uint64)",
+              "14: method fund_account(pay)uint64",
+              "15: method buy_asset(byte[],uint64)void",
+              "16: method admin_upsert_asset((string,string,uint64))void",
+              "17: txna ApplicationArgs 0",
+              "18: match __puya_arc4_router___register_route@2 __puya_arc4_router___fund_account_route@3 __puya_arc4_router___buy_asset_route@4 __puya_arc4_router___admin_upsert_asset_route@5"
+            ],
+            [
+              "19: int 0",
+              "20: retsub"
+            ],
+            [
+              "5: return"
+            ]
+          ]
+        },
+        {
+          "short": "0 -> 1 -> 3 -> 4 -> 6 -> 17 -> 18 -> 19 -> 7 -> 2",
+          "blocks": [
+            [
+              "1: #pragma version 10"
+            ],
+            [
+              "3: smart_contracts.box_storage.contract.Game.approval_program:",
+              "4: callsub __puya_arc4_router__"
+            ],
+            [
+              "9: __puya_arc4_router__:",
+              "10: proto 0 1",
+              "11: txn NumAppArgs",
+              "12: bz __puya_arc4_router___bare_routing@8"
+            ],
+            [
+              "13: method register(string)(uint64,string,uint64)",
+              "14: method fund_account(pay)uint64",
+              "15: method buy_asset(byte[],uint64)void",
+              "16: method admin_upsert_asset((string,string,uint64))void",
+              "17: txna ApplicationArgs 0",
+              "18: match __puya_arc4_router___register_route@2 __puya_arc4_router___fund_account_route@3 __puya_arc4_router___buy_asset_route@4 __puya_arc4_router___admin_upsert_asset_route@5"
+            ],
+            [
+              "22: __puya_arc4_router___register_route@2:",
+              "23: txn OnCompletion",
+              "24: !",
+              "25: assert",
+              "26: txn ApplicationID",
+              "27: assert",
+              "28: txna ApplicationArgs 1",
+              "29: callsub register"
+            ],
+            [
+              "99: register:",
+              "100: proto 1 1",
+              "101: byte \"user\"",
+              "102: txn Sender",
+              "103: concat",
+              "104: box_len",
+              "105: bury 1",
+              "106: bnz register_after_if_else@2"
+            ],
+            [
+              "107: global LatestTimestamp",
+              "108: itob",
+              "109: byte 0x0012",
+              "110: concat",
+              "111: byte 0x0000000000000000",
+              "112: concat",
+              "113: frame_dig -1",
+              "114: concat",
+              "115: byte \"user\"",
+              "116: txn Sender",
+              "117: concat",
+              "118: dup",
+              "119: box_del",
+              "120: pop",
+              "121: swap",
+              "122: box_put"
+            ],
+            [
+              "124: register_after_if_else@2:",
+              "125: byte \"user\"",
+              "126: txn Sender",
+              "127: concat",
+              "128: box_get",
+              "129: assert",
+              "130: retsub"
+            ],
+            [
+              "30: byte 0x151f7c75",
+              "31: swap",
+              "32: concat",
+              "33: log",
+              "34: int 1",
+              "35: retsub"
+            ],
+            [
+              "5: return"
+            ]
+          ]
+        },
+        {
+          "short": "0 -> 1 -> 3 -> 4 -> 6 -> 17 -> 19 -> 7 -> 2",
+          "blocks": [
+            [
+              "1: #pragma version 10"
+            ],
+            [
+              "3: smart_contracts.box_storage.contract.Game.approval_program:",
+              "4: callsub __puya_arc4_router__"
+            ],
+            [
+              "9: __puya_arc4_router__:",
+              "10: proto 0 1",
+              "11: txn NumAppArgs",
+              "12: bz __puya_arc4_router___bare_routing@8"
+            ],
+            [
+              "13: method register(string)(uint64,string,uint64)",
+              "14: method fund_account(pay)uint64",
+              "15: method buy_asset(byte[],uint64)void",
+              "16: method admin_upsert_asset((string,string,uint64))void",
+              "17: txna ApplicationArgs 0",
+              "18: match __puya_arc4_router___register_route@2 __puya_arc4_router___fund_account_route@3 __puya_arc4_router___buy_asset_route@4 __puya_arc4_router___admin_upsert_asset_route@5"
+            ],
+            [
+              "22: __puya_arc4_router___register_route@2:",
+              "23: txn OnCompletion",
+              "24: !",
+              "25: assert",
+              "26: txn ApplicationID",
+              "27: assert",
+              "28: txna ApplicationArgs 1",
+              "29: callsub register"
+            ],
+            [
+              "99: register:",
+              "100: proto 1 1",
+              "101: byte \"user\"",
+              "102: txn Sender",
+              "103: concat",
+              "104: box_len",
+              "105: bury 1",
+              "106: bnz register_after_if_else@2"
+            ],
+            [
+              "124: register_after_if_else@2:",
+              "125: byte \"user\"",
+              "126: txn Sender",
+              "127: concat",
+              "128: box_get",
+              "129: assert",
+              "130: retsub"
+            ],
+            [
+              "30: byte 0x151f7c75",
+              "31: swap",
+              "32: concat",
+              "33: log",
+              "34: int 1",
+              "35: retsub"
+            ],
+            [
+              "5: return"
+            ]
+          ]
+        },
+        {
+          "short": "0 -> 1 -> 3 -> 4 -> 8 -> 20 -> 9 -> 2",
+          "blocks": [
+            [
+              "1: #pragma version 10"
+            ],
+            [
+              "3: smart_contracts.box_storage.contract.Game.approval_program:",
+              "4: callsub __puya_arc4_router__"
+            ],
+            [
+              "9: __puya_arc4_router__:",
+              "10: proto 0 1",
+              "11: txn NumAppArgs",
+              "12: bz __puya_arc4_router___bare_routing@8"
+            ],
+            [
+              "13: method register(string)(uint64,string,uint64)",
+              "14: method fund_account(pay)uint64",
+              "15: method buy_asset(byte[],uint64)void",
+              "16: method admin_upsert_asset((string,string,uint64))void",
+              "17: txna ApplicationArgs 0",
+              "18: match __puya_arc4_router___register_route@2 __puya_arc4_router___fund_account_route@3 __puya_arc4_router___buy_asset_route@4 __puya_arc4_router___admin_upsert_asset_route@5"
+            ],
+            [
+              "37: __puya_arc4_router___fund_account_route@3:",
+              "38: txn OnCompletion",
+              "39: !",
+              "40: assert",
+              "41: txn ApplicationID",
+              "42: assert",
+              "43: txn GroupIndex",
+              "44: int 1",
+              "45: -",
+              "46: dup",
+              "47: Gtxns TypeEnum",
+              "48: int pay",
+              "49: ==",
+              "50: assert",
+              "51: callsub fund_account"
+            ],
+            [
+              "134: fund_account:",
+              "135: proto 1 1",
+              "136: frame_dig -1",
+              "137: Gtxns Receiver",
+              "138: global CurrentApplicationAddress",
+              "139: ==",
+              "140: assert",
+              "141: frame_dig -1",
+              "142: Gtxns Sender",
+              "143: byte \"user\"",
+              "144: swap",
+              "145: concat",
+              "146: dup",
+              "147: box_len",
+              "148: bury 1",
+              "149: assert",
+              "150: dup",
+              "151: box_get",
+              "152: assert",
+              "153: extract 10 8",
+              "154: btoi",
+              "155: frame_dig -1",
+              "156: Gtxns Amount",
+              "157: +",
+              "158: itob",
+              "159: dig 1",
+              "160: box_get",
+              "161: assert",
+              "162: swap",
+              "163: replace2 10",
+              "164: dig 1",
+              "165: box_del",
+              "166: pop",
+              "167: dig 1",
+              "168: swap",
+              "169: box_put",
+              "170: box_get",
+              "171: assert",
+              "172: extract 10 8",
+              "173: retsub"
+            ],
+            [
+              "52: byte 0x151f7c75",
+              "53: swap",
+              "54: concat",
+              "55: log",
+              "56: int 1",
+              "57: retsub"
+            ],
+            [
+              "5: return"
+            ]
+          ]
+        },
+        {
+          "short": "0 -> 1 -> 3 -> 4 -> 10 -> 21 -> 22 -> 24 -> 11 -> 2",
+          "blocks": [
+            [
+              "1: #pragma version 10"
+            ],
+            [
+              "3: smart_contracts.box_storage.contract.Game.approval_program:",
+              "4: callsub __puya_arc4_router__"
+            ],
+            [
+              "9: __puya_arc4_router__:",
+              "10: proto 0 1",
+              "11: txn NumAppArgs",
+              "12: bz __puya_arc4_router___bare_routing@8"
+            ],
+            [
+              "13: method register(string)(uint64,string,uint64)",
+              "14: method fund_account(pay)uint64",
+              "15: method buy_asset(byte[],uint64)void",
+              "16: method admin_upsert_asset((string,string,uint64))void",
+              "17: txna ApplicationArgs 0",
+              "18: match __puya_arc4_router___register_route@2 __puya_arc4_router___fund_account_route@3 __puya_arc4_router___buy_asset_route@4 __puya_arc4_router___admin_upsert_asset_route@5"
+            ],
+            [
+              "59: __puya_arc4_router___buy_asset_route@4:",
+              "60: txn OnCompletion",
+              "61: !",
+              "62: assert",
+              "63: txn ApplicationID",
+              "64: assert",
+              "65: txna ApplicationArgs 1",
+              "66: extract 2 0",
+              "67: txna ApplicationArgs 2",
+              "68: btoi",
+              "69: callsub buy_asset"
+            ],
+            [
+              "177: buy_asset:",
+              "178: proto 2 0",
+              "179: byte \"user\"",
+              "180: txn Sender",
+              "181: concat",
+              "182: box_len",
+              "183: bury 1",
+              "184: assert",
+              "185: byte \"asset\"",
+              "186: frame_dig -2",
+              "187: concat",
+              "188: dup",
+              "189: box_len",
+              "190: bury 1",
+              "191: assert",
+              "192: byte \"user\"",
+              "193: txn Sender",
+              "194: concat",
+              "195: box_get",
+              "196: assert",
+              "197: extract 10 8",
+              "198: btoi",
+              "199: swap",
+              "200: box_get",
+              "201: assert",
+              "202: extract 4 8",
+              "203: btoi",
+              "204: frame_dig -1",
+              "205: *",
+              "206: dup2",
+              "207: >=",
+              "208: assert",
+              "209: -",
+              "210: itob",
+              "211: byte \"user\"",
+              "212: txn Sender",
+              "213: concat",
+              "214: box_get",
+              "215: assert",
+              "216: swap",
+              "217: replace2 10",
+              "218: byte \"user\"",
+              "219: txn Sender",
+              "220: concat",
+              "221: dup",
+              "222: box_del",
+              "223: pop",
+              "224: swap",
+              "225: box_put",
+              "226: txn Sender",
+              "227: frame_dig -2",
+              "228: concat",
+              "229: sha256",
+              "230: byte \"user_asset\"",
+              "231: swap",
+              "232: concat",
+              "233: dup",
+              "234: box_len",
+              "235: bury 1",
+              "236: bz buy_asset_else_body@2"
+            ],
+            [
+              "237: dup",
+              "238: box_get",
+              "239: swap",
+              "240: btoi",
+              "241: swap",
+              "242: assert",
+              "243: frame_dig -1",
+              "244: +",
+              "245: itob",
+              "246: box_put",
+              "247: b buy_asset_after_if_else@3"
+            ],
+            [
+              "254: buy_asset_after_if_else@3:",
+              "255: retsub"
+            ],
+            [
+              "70: int 1",
+              "71: retsub"
+            ],
+            [
+              "5: return"
+            ]
+          ]
+        },
+        {
+          "short": "0 -> 1 -> 3 -> 4 -> 10 -> 21 -> 23 -> 24 -> 11 -> 2",
+          "blocks": [
+            [
+              "1: #pragma version 10"
+            ],
+            [
+              "3: smart_contracts.box_storage.contract.Game.approval_program:",
+              "4: callsub __puya_arc4_router__"
+            ],
+            [
+              "9: __puya_arc4_router__:",
+              "10: proto 0 1",
+              "11: txn NumAppArgs",
+              "12: bz __puya_arc4_router___bare_routing@8"
+            ],
+            [
+              "13: method register(string)(uint64,string,uint64)",
+              "14: method fund_account(pay)uint64",
+              "15: method buy_asset(byte[],uint64)void",
+              "16: method admin_upsert_asset((string,string,uint64))void",
+              "17: txna ApplicationArgs 0",
+              "18: match __puya_arc4_router___register_route@2 __puya_arc4_router___fund_account_route@3 __puya_arc4_router___buy_asset_route@4 __puya_arc4_router___admin_upsert_asset_route@5"
+            ],
+            [
+              "59: __puya_arc4_router___buy_asset_route@4:",
+              "60: txn OnCompletion",
+              "61: !",
+              "62: assert",
+              "63: txn ApplicationID",
+              "64: assert",
+              "65: txna ApplicationArgs 1",
+              "66: extract 2 0",
+              "67: txna ApplicationArgs 2",
+              "68: btoi",
+              "69: callsub buy_asset"
+            ],
+            [
+              "177: buy_asset:",
+              "178: proto 2 0",
+              "179: byte \"user\"",
+              "180: txn Sender",
+              "181: concat",
+              "182: box_len",
+              "183: bury 1",
+              "184: assert",
+              "185: byte \"asset\"",
+              "186: frame_dig -2",
+              "187: concat",
+              "188: dup",
+              "189: box_len",
+              "190: bury 1",
+              "191: assert",
+              "192: byte \"user\"",
+              "193: txn Sender",
+              "194: concat",
+              "195: box_get",
+              "196: assert",
+              "197: extract 10 8",
+              "198: btoi",
+              "199: swap",
+              "200: box_get",
+              "201: assert",
+              "202: extract 4 8",
+              "203: btoi",
+              "204: frame_dig -1",
+              "205: *",
+              "206: dup2",
+              "207: >=",
+              "208: assert",
+              "209: -",
+              "210: itob",
+              "211: byte \"user\"",
+              "212: txn Sender",
+              "213: concat",
+              "214: box_get",
+              "215: assert",
+              "216: swap",
+              "217: replace2 10",
+              "218: byte \"user\"",
+              "219: txn Sender",
+              "220: concat",
+              "221: dup",
+              "222: box_del",
+              "223: pop",
+              "224: swap",
+              "225: box_put",
+              "226: txn Sender",
+              "227: frame_dig -2",
+              "228: concat",
+              "229: sha256",
+              "230: byte \"user_asset\"",
+              "231: swap",
+              "232: concat",
+              "233: dup",
+              "234: box_len",
+              "235: bury 1",
+              "236: bz buy_asset_else_body@2"
+            ],
+            [
+              "249: buy_asset_else_body@2:",
+              "250: frame_dig -1",
+              "251: itob",
+              "252: box_put"
+            ],
+            [
+              "254: buy_asset_after_if_else@3:",
+              "255: retsub"
+            ],
+            [
+              "70: int 1",
+              "71: retsub"
+            ],
+            [
+              "5: return"
+            ]
+          ]
+        },
+        {
+          "short": "0 -> 1 -> 3 -> 4 -> 12 -> 25 -> 13 -> 2",
+          "blocks": [
+            [
+              "1: #pragma version 10"
+            ],
+            [
+              "3: smart_contracts.box_storage.contract.Game.approval_program:",
+              "4: callsub __puya_arc4_router__"
+            ],
+            [
+              "9: __puya_arc4_router__:",
+              "10: proto 0 1",
+              "11: txn NumAppArgs",
+              "12: bz __puya_arc4_router___bare_routing@8"
+            ],
+            [
+              "13: method register(string)(uint64,string,uint64)",
+              "14: method fund_account(pay)uint64",
+              "15: method buy_asset(byte[],uint64)void",
+              "16: method admin_upsert_asset((string,string,uint64))void",
+              "17: txna ApplicationArgs 0",
+              "18: match __puya_arc4_router___register_route@2 __puya_arc4_router___fund_account_route@3 __puya_arc4_router___buy_asset_route@4 __puya_arc4_router___admin_upsert_asset_route@5"
+            ],
+            [
+              "73: __puya_arc4_router___admin_upsert_asset_route@5:",
+              "74: txn OnCompletion",
+              "75: !",
+              "76: assert",
+              "77: txn ApplicationID",
+              "78: assert",
+              "79: txna ApplicationArgs 1",
+              "80: callsub admin_upsert_asset"
+            ],
+            [
+              "259: admin_upsert_asset:",
+              "260: proto 1 0",
+              "261: txn Sender",
+              "262: global CreatorAddress",
+              "263: ==",
+              "264: assert",
+              "265: frame_dig -1",
+              "266: int 0",
+              "267: extract_uint16",
+              "268: frame_dig -1",
+              "269: int 2",
+              "270: extract_uint16",
+              "271: frame_dig -1",
+              "272: cover 2",
+              "273: substring3",
+              "274: sha256",
+              "275: byte \"asset\"",
+              "276: swap",
+              "277: concat",
+              "278: dup",
+              "279: box_del",
+              "280: pop",
+              "281: frame_dig -1",
+              "282: box_put",
+              "283: retsub"
+            ],
+            [
+              "81: int 1",
+              "82: retsub"
+            ],
+            [
+              "5: return"
+            ]
+          ]
+        },
+        {
+          "short": "0 -> 1 -> 3 -> 14 -> 15 -> 2",
+          "blocks": [
+            [
+              "1: #pragma version 10"
+            ],
+            [
+              "3: smart_contracts.box_storage.contract.Game.approval_program:",
+              "4: callsub __puya_arc4_router__"
+            ],
+            [
+              "9: __puya_arc4_router__:",
+              "10: proto 0 1",
+              "11: txn NumAppArgs",
+              "12: bz __puya_arc4_router___bare_routing@8"
+            ],
+            [
+              "84: __puya_arc4_router___bare_routing@8:",
+              "85: txn OnCompletion",
+              "86: bnz __puya_arc4_router___after_if_else@12"
+            ],
+            [
+              "87: txn ApplicationID",
+              "88: !",
+              "89: assert",
+              "90: int 1",
+              "91: retsub"
+            ],
+            [
+              "5: return"
+            ]
+          ]
+        },
+        {
+          "short": "0 -> 1 -> 3 -> 14 -> 16 -> 2",
+          "blocks": [
+            [
+              "1: #pragma version 10"
+            ],
+            [
+              "3: smart_contracts.box_storage.contract.Game.approval_program:",
+              "4: callsub __puya_arc4_router__"
+            ],
+            [
+              "9: __puya_arc4_router__:",
+              "10: proto 0 1",
+              "11: txn NumAppArgs",
+              "12: bz __puya_arc4_router___bare_routing@8"
+            ],
+            [
+              "84: __puya_arc4_router___bare_routing@8:",
+              "85: txn OnCompletion",
+              "86: bnz __puya_arc4_router___after_if_else@12"
+            ],
+            [
+              "93: __puya_arc4_router___after_if_else@12:",
+              "94: int 0",
+              "95: retsub"
+            ],
+            [
+              "5: return"
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "type": "ExecutionPaths",
+      "count": 0,
+      "description": "\nCheck: \"group-size-check\", Impact: High, Confidence: High\nDescription: Usage of absolute indexes without validating GroupSize\n\nWiki: https://github.com/crytic/tealer/wiki/Detector-Documentation#missing-groupsize-validation\n",
+      "check": "group-size-check",
+      "impact": "High",
+      "confidence": "High",
+      "help": "- Avoid using absolute indexes. Validate GroupSize if used.\n- Favor using ARC-4 ABI and relative indexes for group transactions.",
+      "paths": []
+    },
+    {
+      "type": "ExecutionPaths",
+      "count": 9,
+      "description": "\nCheck: \"rekey-to\", Impact: High, Confidence: High\nDescription: Rekeyable Logic Signatures\n\nWiki: https://github.com/crytic/tealer/wiki/Detector-Documentation#rekeyable-logicsig\n",
+      "check": "rekey-to",
+      "impact": "High",
+      "confidence": "High",
+      "help": "Validate `RekeyTo` field in the LogicSig.",
+      "paths": [
+        {
+          "short": "0 -> 1 -> 3 -> 4 -> 5 -> 2",
+          "blocks": [
+            [
+              "1: #pragma version 10"
+            ],
+            [
+              "3: smart_contracts.box_storage.contract.Game.approval_program:",
+              "4: callsub __puya_arc4_router__"
+            ],
+            [
+              "9: __puya_arc4_router__:",
+              "10: proto 0 1",
+              "11: txn NumAppArgs",
+              "12: bz __puya_arc4_router___bare_routing@8"
+            ],
+            [
+              "13: method register(string)(uint64,string,uint64)",
+              "14: method fund_account(pay)uint64",
+              "15: method buy_asset(byte[],uint64)void",
+              "16: method admin_upsert_asset((string,string,uint64))void",
+              "17: txna ApplicationArgs 0",
+              "18: match __puya_arc4_router___register_route@2 __puya_arc4_router___fund_account_route@3 __puya_arc4_router___buy_asset_route@4 __puya_arc4_router___admin_upsert_asset_route@5"
+            ],
+            [
+              "19: int 0",
+              "20: retsub"
+            ],
+            [
+              "5: return"
+            ]
+          ]
+        },
+        {
+          "short": "0 -> 1 -> 3 -> 4 -> 6 -> 17 -> 18 -> 19 -> 7 -> 2",
+          "blocks": [
+            [
+              "1: #pragma version 10"
+            ],
+            [
+              "3: smart_contracts.box_storage.contract.Game.approval_program:",
+              "4: callsub __puya_arc4_router__"
+            ],
+            [
+              "9: __puya_arc4_router__:",
+              "10: proto 0 1",
+              "11: txn NumAppArgs",
+              "12: bz __puya_arc4_router___bare_routing@8"
+            ],
+            [
+              "13: method register(string)(uint64,string,uint64)",
+              "14: method fund_account(pay)uint64",
+              "15: method buy_asset(byte[],uint64)void",
+              "16: method admin_upsert_asset((string,string,uint64))void",
+              "17: txna ApplicationArgs 0",
+              "18: match __puya_arc4_router___register_route@2 __puya_arc4_router___fund_account_route@3 __puya_arc4_router___buy_asset_route@4 __puya_arc4_router___admin_upsert_asset_route@5"
+            ],
+            [
+              "22: __puya_arc4_router___register_route@2:",
+              "23: txn OnCompletion",
+              "24: !",
+              "25: assert",
+              "26: txn ApplicationID",
+              "27: assert",
+              "28: txna ApplicationArgs 1",
+              "29: callsub register"
+            ],
+            [
+              "99: register:",
+              "100: proto 1 1",
+              "101: byte \"user\"",
+              "102: txn Sender",
+              "103: concat",
+              "104: box_len",
+              "105: bury 1",
+              "106: bnz register_after_if_else@2"
+            ],
+            [
+              "107: global LatestTimestamp",
+              "108: itob",
+              "109: byte 0x0012",
+              "110: concat",
+              "111: byte 0x0000000000000000",
+              "112: concat",
+              "113: frame_dig -1",
+              "114: concat",
+              "115: byte \"user\"",
+              "116: txn Sender",
+              "117: concat",
+              "118: dup",
+              "119: box_del",
+              "120: pop",
+              "121: swap",
+              "122: box_put"
+            ],
+            [
+              "124: register_after_if_else@2:",
+              "125: byte \"user\"",
+              "126: txn Sender",
+              "127: concat",
+              "128: box_get",
+              "129: assert",
+              "130: retsub"
+            ],
+            [
+              "30: byte 0x151f7c75",
+              "31: swap",
+              "32: concat",
+              "33: log",
+              "34: int 1",
+              "35: retsub"
+            ],
+            [
+              "5: return"
+            ]
+          ]
+        },
+        {
+          "short": "0 -> 1 -> 3 -> 4 -> 6 -> 17 -> 19 -> 7 -> 2",
+          "blocks": [
+            [
+              "1: #pragma version 10"
+            ],
+            [
+              "3: smart_contracts.box_storage.contract.Game.approval_program:",
+              "4: callsub __puya_arc4_router__"
+            ],
+            [
+              "9: __puya_arc4_router__:",
+              "10: proto 0 1",
+              "11: txn NumAppArgs",
+              "12: bz __puya_arc4_router___bare_routing@8"
+            ],
+            [
+              "13: method register(string)(uint64,string,uint64)",
+              "14: method fund_account(pay)uint64",
+              "15: method buy_asset(byte[],uint64)void",
+              "16: method admin_upsert_asset((string,string,uint64))void",
+              "17: txna ApplicationArgs 0",
+              "18: match __puya_arc4_router___register_route@2 __puya_arc4_router___fund_account_route@3 __puya_arc4_router___buy_asset_route@4 __puya_arc4_router___admin_upsert_asset_route@5"
+            ],
+            [
+              "22: __puya_arc4_router___register_route@2:",
+              "23: txn OnCompletion",
+              "24: !",
+              "25: assert",
+              "26: txn ApplicationID",
+              "27: assert",
+              "28: txna ApplicationArgs 1",
+              "29: callsub register"
+            ],
+            [
+              "99: register:",
+              "100: proto 1 1",
+              "101: byte \"user\"",
+              "102: txn Sender",
+              "103: concat",
+              "104: box_len",
+              "105: bury 1",
+              "106: bnz register_after_if_else@2"
+            ],
+            [
+              "124: register_after_if_else@2:",
+              "125: byte \"user\"",
+              "126: txn Sender",
+              "127: concat",
+              "128: box_get",
+              "129: assert",
+              "130: retsub"
+            ],
+            [
+              "30: byte 0x151f7c75",
+              "31: swap",
+              "32: concat",
+              "33: log",
+              "34: int 1",
+              "35: retsub"
+            ],
+            [
+              "5: return"
+            ]
+          ]
+        },
+        {
+          "short": "0 -> 1 -> 3 -> 4 -> 8 -> 20 -> 9 -> 2",
+          "blocks": [
+            [
+              "1: #pragma version 10"
+            ],
+            [
+              "3: smart_contracts.box_storage.contract.Game.approval_program:",
+              "4: callsub __puya_arc4_router__"
+            ],
+            [
+              "9: __puya_arc4_router__:",
+              "10: proto 0 1",
+              "11: txn NumAppArgs",
+              "12: bz __puya_arc4_router___bare_routing@8"
+            ],
+            [
+              "13: method register(string)(uint64,string,uint64)",
+              "14: method fund_account(pay)uint64",
+              "15: method buy_asset(byte[],uint64)void",
+              "16: method admin_upsert_asset((string,string,uint64))void",
+              "17: txna ApplicationArgs 0",
+              "18: match __puya_arc4_router___register_route@2 __puya_arc4_router___fund_account_route@3 __puya_arc4_router___buy_asset_route@4 __puya_arc4_router___admin_upsert_asset_route@5"
+            ],
+            [
+              "37: __puya_arc4_router___fund_account_route@3:",
+              "38: txn OnCompletion",
+              "39: !",
+              "40: assert",
+              "41: txn ApplicationID",
+              "42: assert",
+              "43: txn GroupIndex",
+              "44: int 1",
+              "45: -",
+              "46: dup",
+              "47: Gtxns TypeEnum",
+              "48: int pay",
+              "49: ==",
+              "50: assert",
+              "51: callsub fund_account"
+            ],
+            [
+              "134: fund_account:",
+              "135: proto 1 1",
+              "136: frame_dig -1",
+              "137: Gtxns Receiver",
+              "138: global CurrentApplicationAddress",
+              "139: ==",
+              "140: assert",
+              "141: frame_dig -1",
+              "142: Gtxns Sender",
+              "143: byte \"user\"",
+              "144: swap",
+              "145: concat",
+              "146: dup",
+              "147: box_len",
+              "148: bury 1",
+              "149: assert",
+              "150: dup",
+              "151: box_get",
+              "152: assert",
+              "153: extract 10 8",
+              "154: btoi",
+              "155: frame_dig -1",
+              "156: Gtxns Amount",
+              "157: +",
+              "158: itob",
+              "159: dig 1",
+              "160: box_get",
+              "161: assert",
+              "162: swap",
+              "163: replace2 10",
+              "164: dig 1",
+              "165: box_del",
+              "166: pop",
+              "167: dig 1",
+              "168: swap",
+              "169: box_put",
+              "170: box_get",
+              "171: assert",
+              "172: extract 10 8",
+              "173: retsub"
+            ],
+            [
+              "52: byte 0x151f7c75",
+              "53: swap",
+              "54: concat",
+              "55: log",
+              "56: int 1",
+              "57: retsub"
+            ],
+            [
+              "5: return"
+            ]
+          ]
+        },
+        {
+          "short": "0 -> 1 -> 3 -> 4 -> 10 -> 21 -> 22 -> 24 -> 11 -> 2",
+          "blocks": [
+            [
+              "1: #pragma version 10"
+            ],
+            [
+              "3: smart_contracts.box_storage.contract.Game.approval_program:",
+              "4: callsub __puya_arc4_router__"
+            ],
+            [
+              "9: __puya_arc4_router__:",
+              "10: proto 0 1",
+              "11: txn NumAppArgs",
+              "12: bz __puya_arc4_router___bare_routing@8"
+            ],
+            [
+              "13: method register(string)(uint64,string,uint64)",
+              "14: method fund_account(pay)uint64",
+              "15: method buy_asset(byte[],uint64)void",
+              "16: method admin_upsert_asset((string,string,uint64))void",
+              "17: txna ApplicationArgs 0",
+              "18: match __puya_arc4_router___register_route@2 __puya_arc4_router___fund_account_route@3 __puya_arc4_router___buy_asset_route@4 __puya_arc4_router___admin_upsert_asset_route@5"
+            ],
+            [
+              "59: __puya_arc4_router___buy_asset_route@4:",
+              "60: txn OnCompletion",
+              "61: !",
+              "62: assert",
+              "63: txn ApplicationID",
+              "64: assert",
+              "65: txna ApplicationArgs 1",
+              "66: extract 2 0",
+              "67: txna ApplicationArgs 2",
+              "68: btoi",
+              "69: callsub buy_asset"
+            ],
+            [
+              "177: buy_asset:",
+              "178: proto 2 0",
+              "179: byte \"user\"",
+              "180: txn Sender",
+              "181: concat",
+              "182: box_len",
+              "183: bury 1",
+              "184: assert",
+              "185: byte \"asset\"",
+              "186: frame_dig -2",
+              "187: concat",
+              "188: dup",
+              "189: box_len",
+              "190: bury 1",
+              "191: assert",
+              "192: byte \"user\"",
+              "193: txn Sender",
+              "194: concat",
+              "195: box_get",
+              "196: assert",
+              "197: extract 10 8",
+              "198: btoi",
+              "199: swap",
+              "200: box_get",
+              "201: assert",
+              "202: extract 4 8",
+              "203: btoi",
+              "204: frame_dig -1",
+              "205: *",
+              "206: dup2",
+              "207: >=",
+              "208: assert",
+              "209: -",
+              "210: itob",
+              "211: byte \"user\"",
+              "212: txn Sender",
+              "213: concat",
+              "214: box_get",
+              "215: assert",
+              "216: swap",
+              "217: replace2 10",
+              "218: byte \"user\"",
+              "219: txn Sender",
+              "220: concat",
+              "221: dup",
+              "222: box_del",
+              "223: pop",
+              "224: swap",
+              "225: box_put",
+              "226: txn Sender",
+              "227: frame_dig -2",
+              "228: concat",
+              "229: sha256",
+              "230: byte \"user_asset\"",
+              "231: swap",
+              "232: concat",
+              "233: dup",
+              "234: box_len",
+              "235: bury 1",
+              "236: bz buy_asset_else_body@2"
+            ],
+            [
+              "237: dup",
+              "238: box_get",
+              "239: swap",
+              "240: btoi",
+              "241: swap",
+              "242: assert",
+              "243: frame_dig -1",
+              "244: +",
+              "245: itob",
+              "246: box_put",
+              "247: b buy_asset_after_if_else@3"
+            ],
+            [
+              "254: buy_asset_after_if_else@3:",
+              "255: retsub"
+            ],
+            [
+              "70: int 1",
+              "71: retsub"
+            ],
+            [
+              "5: return"
+            ]
+          ]
+        },
+        {
+          "short": "0 -> 1 -> 3 -> 4 -> 10 -> 21 -> 23 -> 24 -> 11 -> 2",
+          "blocks": [
+            [
+              "1: #pragma version 10"
+            ],
+            [
+              "3: smart_contracts.box_storage.contract.Game.approval_program:",
+              "4: callsub __puya_arc4_router__"
+            ],
+            [
+              "9: __puya_arc4_router__:",
+              "10: proto 0 1",
+              "11: txn NumAppArgs",
+              "12: bz __puya_arc4_router___bare_routing@8"
+            ],
+            [
+              "13: method register(string)(uint64,string,uint64)",
+              "14: method fund_account(pay)uint64",
+              "15: method buy_asset(byte[],uint64)void",
+              "16: method admin_upsert_asset((string,string,uint64))void",
+              "17: txna ApplicationArgs 0",
+              "18: match __puya_arc4_router___register_route@2 __puya_arc4_router___fund_account_route@3 __puya_arc4_router___buy_asset_route@4 __puya_arc4_router___admin_upsert_asset_route@5"
+            ],
+            [
+              "59: __puya_arc4_router___buy_asset_route@4:",
+              "60: txn OnCompletion",
+              "61: !",
+              "62: assert",
+              "63: txn ApplicationID",
+              "64: assert",
+              "65: txna ApplicationArgs 1",
+              "66: extract 2 0",
+              "67: txna ApplicationArgs 2",
+              "68: btoi",
+              "69: callsub buy_asset"
+            ],
+            [
+              "177: buy_asset:",
+              "178: proto 2 0",
+              "179: byte \"user\"",
+              "180: txn Sender",
+              "181: concat",
+              "182: box_len",
+              "183: bury 1",
+              "184: assert",
+              "185: byte \"asset\"",
+              "186: frame_dig -2",
+              "187: concat",
+              "188: dup",
+              "189: box_len",
+              "190: bury 1",
+              "191: assert",
+              "192: byte \"user\"",
+              "193: txn Sender",
+              "194: concat",
+              "195: box_get",
+              "196: assert",
+              "197: extract 10 8",
+              "198: btoi",
+              "199: swap",
+              "200: box_get",
+              "201: assert",
+              "202: extract 4 8",
+              "203: btoi",
+              "204: frame_dig -1",
+              "205: *",
+              "206: dup2",
+              "207: >=",
+              "208: assert",
+              "209: -",
+              "210: itob",
+              "211: byte \"user\"",
+              "212: txn Sender",
+              "213: concat",
+              "214: box_get",
+              "215: assert",
+              "216: swap",
+              "217: replace2 10",
+              "218: byte \"user\"",
+              "219: txn Sender",
+              "220: concat",
+              "221: dup",
+              "222: box_del",
+              "223: pop",
+              "224: swap",
+              "225: box_put",
+              "226: txn Sender",
+              "227: frame_dig -2",
+              "228: concat",
+              "229: sha256",
+              "230: byte \"user_asset\"",
+              "231: swap",
+              "232: concat",
+              "233: dup",
+              "234: box_len",
+              "235: bury 1",
+              "236: bz buy_asset_else_body@2"
+            ],
+            [
+              "249: buy_asset_else_body@2:",
+              "250: frame_dig -1",
+              "251: itob",
+              "252: box_put"
+            ],
+            [
+              "254: buy_asset_after_if_else@3:",
+              "255: retsub"
+            ],
+            [
+              "70: int 1",
+              "71: retsub"
+            ],
+            [
+              "5: return"
+            ]
+          ]
+        },
+        {
+          "short": "0 -> 1 -> 3 -> 4 -> 12 -> 25 -> 13 -> 2",
+          "blocks": [
+            [
+              "1: #pragma version 10"
+            ],
+            [
+              "3: smart_contracts.box_storage.contract.Game.approval_program:",
+              "4: callsub __puya_arc4_router__"
+            ],
+            [
+              "9: __puya_arc4_router__:",
+              "10: proto 0 1",
+              "11: txn NumAppArgs",
+              "12: bz __puya_arc4_router___bare_routing@8"
+            ],
+            [
+              "13: method register(string)(uint64,string,uint64)",
+              "14: method fund_account(pay)uint64",
+              "15: method buy_asset(byte[],uint64)void",
+              "16: method admin_upsert_asset((string,string,uint64))void",
+              "17: txna ApplicationArgs 0",
+              "18: match __puya_arc4_router___register_route@2 __puya_arc4_router___fund_account_route@3 __puya_arc4_router___buy_asset_route@4 __puya_arc4_router___admin_upsert_asset_route@5"
+            ],
+            [
+              "73: __puya_arc4_router___admin_upsert_asset_route@5:",
+              "74: txn OnCompletion",
+              "75: !",
+              "76: assert",
+              "77: txn ApplicationID",
+              "78: assert",
+              "79: txna ApplicationArgs 1",
+              "80: callsub admin_upsert_asset"
+            ],
+            [
+              "259: admin_upsert_asset:",
+              "260: proto 1 0",
+              "261: txn Sender",
+              "262: global CreatorAddress",
+              "263: ==",
+              "264: assert",
+              "265: frame_dig -1",
+              "266: int 0",
+              "267: extract_uint16",
+              "268: frame_dig -1",
+              "269: int 2",
+              "270: extract_uint16",
+              "271: frame_dig -1",
+              "272: cover 2",
+              "273: substring3",
+              "274: sha256",
+              "275: byte \"asset\"",
+              "276: swap",
+              "277: concat",
+              "278: dup",
+              "279: box_del",
+              "280: pop",
+              "281: frame_dig -1",
+              "282: box_put",
+              "283: retsub"
+            ],
+            [
+              "81: int 1",
+              "82: retsub"
+            ],
+            [
+              "5: return"
+            ]
+          ]
+        },
+        {
+          "short": "0 -> 1 -> 3 -> 14 -> 15 -> 2",
+          "blocks": [
+            [
+              "1: #pragma version 10"
+            ],
+            [
+              "3: smart_contracts.box_storage.contract.Game.approval_program:",
+              "4: callsub __puya_arc4_router__"
+            ],
+            [
+              "9: __puya_arc4_router__:",
+              "10: proto 0 1",
+              "11: txn NumAppArgs",
+              "12: bz __puya_arc4_router___bare_routing@8"
+            ],
+            [
+              "84: __puya_arc4_router___bare_routing@8:",
+              "85: txn OnCompletion",
+              "86: bnz __puya_arc4_router___after_if_else@12"
+            ],
+            [
+              "87: txn ApplicationID",
+              "88: !",
+              "89: assert",
+              "90: int 1",
+              "91: retsub"
+            ],
+            [
+              "5: return"
+            ]
+          ]
+        },
+        {
+          "short": "0 -> 1 -> 3 -> 14 -> 16 -> 2",
+          "blocks": [
+            [
+              "1: #pragma version 10"
+            ],
+            [
+              "3: smart_contracts.box_storage.contract.Game.approval_program:",
+              "4: callsub __puya_arc4_router__"
+            ],
+            [
+              "9: __puya_arc4_router__:",
+              "10: proto 0 1",
+              "11: txn NumAppArgs",
+              "12: bz __puya_arc4_router___bare_routing@8"
+            ],
+            [
+              "84: __puya_arc4_router___bare_routing@8:",
+              "85: txn OnCompletion",
+              "86: bnz __puya_arc4_router___after_if_else@12"
+            ],
+            [
+              "93: __puya_arc4_router___after_if_else@12:",
+              "94: int 0",
+              "95: retsub"
+            ],
+            [
+              "5: return"
+            ]
+          ]
+        }
+      ]
+    }
+  ]
+}
